@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-title="transparency.page_title">Transparency - SEVO</title>
+    <meta name="description" data-i18n-content="meta.site_description"
+        content="SEVO is committed to transparency and accountability. View our financial reports, governance documents, and operational data.">
+
+    <!-- Google Fonts - Oswald & Arabic Support -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Internationalization Styles -->
+    <link rel="stylesheet" href="css/i18n.css">
+
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --bg-color: #ffe8cc;
+            --bg-card: #ffffff;
+            --bg-section: #fff5f5;
+            --text-main: #7F4145;
+            --text-muted: #8B5A5E;
+            --text-light: #A67073;
+            --accent: #7F4145;
+            --accent-light: rgba(127, 65, 69, 0.1);
+            --spacing-section: 80px;
+            --container-width: 1200px;
+            --radius-btn: 9999px;
+            --radius-card: 16px;
+            --navbar-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Oswald', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Utilities */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 16px 36px;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        h1,
+        h2,
+        h3 {
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        /* Floating Navbar */
+        .navbar-wrapper {
+            position: fixed;
+            top: 0;
+            inset-inline: 0;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--navbar-height);
+            padding: 0 40px;
+            background: rgba(255, 232, 204, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 30px rgba(127, 65, 69, 0.08);
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: auto;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .navbar.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .navbar.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .navbar .logo {
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .navbar .nav-links a.active {
+            color: var(--text-main);
+            text-decoration: underline;
+        }
+
+        .navbar .nav-links a:not(.btn):hover {
+            color: var(--text-light);
+        }
+
+        .navbar .nav-links .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            border-radius: var(--radius-btn);
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .navbar .nav-links .btn:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        /* Static Header (Hero State) */
+        .static-header {
+            position: absolute;
+            top: 0;
+            inset-inline: 0;
+            padding: 24px 0;
+            z-index: 100;
+            background: transparent;
+        }
+
+        .static-header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .static-header .logo {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+        }
+
+        .static-header .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .static-header .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .static-header .nav-links a.active {
+            text-decoration: underline;
+        }
+
+        .static-header .nav-links a:not(.btn):hover {
+            color: var(--text-light);
+        }
+
+        .static-header .nav-links .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            border-radius: var(--radius-btn);
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .static-header .nav-links .btn:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 160px 0 80px;
+            text-align: center;
+            background-color: var(--bg-color);
+        }
+
+        .hero h1 {
+            margin-bottom: 16px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Principles Section */
+        .principles-section {
+            padding: var(--spacing-section) 0;
+            background-color: var(--bg-card);
+        }
+
+        .principles-section h2 {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .principle-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--bg-section);
+            border-radius: var(--radius-card);
+        }
+
+        .principle-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            color: var(--bg-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+        }
+
+        .principle-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+        .principle-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Documents Section */
+        .documents-section {
+            padding: var(--spacing-section) 0;
+            background-color: var(--bg-section);
+        }
+
+        .documents-section h2 {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .document-card {
+            background: var(--bg-card);
+            padding: 32px;
+            border-radius: var(--radius-card);
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .document-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(127, 65, 69, 0.1);
+        }
+
+        .document-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .document-card h3 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+
+        /* Funding Section */
+        .funding-section {
+            padding: var(--spacing-section) 0;
+            background-color: var(--bg-card);
+        }
+
+        .funding-section h2 {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .funding-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .funding-item {
+            text-align: center;
+        }
+
+        .funding-bar {
+            height: 8px;
+            background: var(--accent-light);
+            border-radius: 4px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .funding-bar .fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .funding-item h4 {
+            font-size: 1.75rem;
+            margin-bottom: 4px;
+        }
+
+        .funding-item p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: var(--spacing-section) 0;
+            background-color: var(--bg-color);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-color);
+            padding: 80px 0 40px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 60px;
+            padding-top: 40px;
+            align-items: center;
+        }
+
+        .footer-nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .footer-nav-column h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .footer-nav-column ul {
+            list-style: none;
+        }
+
+        .footer-nav-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-nav-column a {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-nav-column a:hover {
+            color: var(--text-main);
+        }
+
+        .footer-social {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 40px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-color);
+            font-size: 1.2rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .social-icon:hover {
+            opacity: 0.8;
+        }
+
+        .footer-tagline {
+            text-align: end;
+        }
+
+        .footer-tagline span {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .footer-tagline strong {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-style: normal;
+            color: var(--text-main);
+            letter-spacing: 0.02em;
+        }
+
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(127, 65, 69, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+        }
+
+        .footer-logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo-img {
+            max-width: 120px;
+            height: auto;
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 32px;
+            }
+
+            h1 {
+                font-size: 2.75rem;
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .documents-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .funding-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-logo-section {
+                justify-content: center;
+            }
+
+            .footer-nav {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-social {
+                align-items: center;
+                text-align: center;
+                width: 100%;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            .footer-tagline {
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                padding: 140px 0 60px;
+            }
+
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .funding-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                padding: 0 24px;
+                border-radius: 0;
+            }
+
+            .navbar .nav-links {
+                display: none;
+            }
+
+            .static-header .nav-links {
+                display: none;
+            }
+
+            .footer-nav {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating Navbar -->
+    <div class="navbar-wrapper">
+        <nav class="navbar">
+            <div class="logo">SEVO&reg;</div>
+            <div class="nav-links">
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="about.html" data-i18n="nav.about">About</a>
+                <a href="transparency.html" class="active" data-i18n="nav.transparency">Transparency</a>
+                <a href="impact.html" data-i18n="nav.impact">Impact</a>
+                <a href="contact.html" data-i18n="nav.contact">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="contact.html#donate" class="btn" data-i18n="nav.donate">Donate</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Static Header (Hero State) -->
+    <header class="static-header">
+        <nav>
+            <div class="logo">SEVO&reg;</div>
+            <div class="nav-links">
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="about.html" data-i18n="nav.about">About</a>
+                <a href="transparency.html" class="active" data-i18n="nav.transparency">Transparency</a>
+                <a href="impact.html" data-i18n="nav.impact">Impact</a>
+                <a href="contact.html" data-i18n="nav.contact">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="contact.html#donate" class="btn" data-i18n="nav.donate">Donate</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1 data-i18n="transparency.hero_title">Transparency & Accountability</h1>
+                <p class="hero-subtitle" data-i18n="transparency.hero_subtitle">We believe in complete openness about
+                    our operations, finances, and impact.</p>
+            </div>
+        </section>
+
+        <!-- Principles Section -->
+        <section class="principles-section">
+            <div class="container">
+                <h2 data-i18n="transparency.principles_title">Our Commitment</h2>
+                <div class="principles-grid">
+                    <div class="principle-card">
+                        <div class="principle-icon">💰</div>
+                        <h3 data-i18n="transparency.principle_1_title">Financial Transparency</h3>
+                        <p data-i18n="transparency.principle_1_desc">Every donation is tracked and reported. We publish
+                            annual financial statements audited by independent accounting firms.</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-icon">📋</div>
+                        <h3 data-i18n="transparency.principle_2_title">Operational Openness</h3>
+                        <p data-i18n="transparency.principle_2_desc">Regular updates from the field, detailed project
+                            reports, and open communication with our donor community.</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-icon">🤝</div>
+                        <h3 data-i18n="transparency.principle_3_title">Community Accountability</h3>
+                        <p data-i18n="transparency.principle_3_desc">Local community committees oversee all projects,
+                            ensuring resources reach those who need them most.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documents Section -->
+        <section class="documents-section">
+            <div class="container">
+                <h2 data-i18n="transparency.documents_title">Public Documents</h2>
+                <div class="documents-grid">
+                    <div class="document-card">
+                        <div class="document-icon">📄</div>
+                        <h3 data-i18n="transparency.doc_by_laws">Organizational By-Laws</h3>
+                        <a href="#" class="btn">Download</a>
+                    </div>
+                    <div class="document-card">
+                        <div class="document-icon">📜</div>
+                        <h3 data-i18n="transparency.doc_certificate">Registration Certificate</h3>
+                        <a href="#" class="btn">Download</a>
+                    </div>
+                    <div class="document-card">
+                        <div class="document-icon">📊</div>
+                        <h3 data-i18n="transparency.doc_annual">Annual Reports</h3>
+                        <a href="#" class="btn">View All</a>
+                    </div>
+                    <div class="document-card">
+                        <div class="document-icon">💹</div>
+                        <h3 data-i18n="transparency.doc_financial">Financial Statements</h3>
+                        <a href="#" class="btn">Download</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Funding Sources -->
+        <section class="funding-section">
+            <div class="container">
+                <h2 data-i18n="transparency.funding_title">Funding Sources</h2>
+                <div class="funding-grid">
+                    <div class="funding-item">
+                        <div class="funding-bar">
+                            <div class="fill" style="width: 45%"></div>
+                        </div>
+                        <h4>45%</h4>
+                        <p data-i18n="transparency.funding_individuals">Individual Donors</p>
+                    </div>
+                    <div class="funding-item">
+                        <div class="funding-bar">
+                            <div class="fill" style="width: 30%"></div>
+                        </div>
+                        <h4>30%</h4>
+                        <p data-i18n="transparency.funding_grants">Institutional Grants</p>
+                    </div>
+                    <div class="funding-item">
+                        <div class="funding-bar">
+                            <div class="fill" style="width: 15%"></div>
+                        </div>
+                        <h4>15%</h4>
+                        <p data-i18n="transparency.funding_corporate">Corporate Partnerships</p>
+                    </div>
+                    <div class="funding-item">
+                        <div class="funding-bar">
+                            <div class="fill" style="width: 10%"></div>
+                        </div>
+                        <h4>10%</h4>
+                        <p data-i18n="transparency.funding_gov">Government Programs</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <h2 data-i18n="transparency.contact_title">Questions?</h2>
+                <p data-i18n="transparency.contact_desc">We're happy to answer any questions about our operations,
+                    finances, or programs.</p>
+                <a href="contact.html" class="btn" data-i18n="transparency.contact_cta">Contact Us</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo-section">
+                    <img src="logo.png" alt="SEVO - Simat Elkhair Voluntary Organization" class="footer-logo-img">
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-nav-column">
+                        <h4 data-i18n="footer.nav_title">Navigation</h4>
+                        <ul>
+                            <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                            <li><a href="about.html" data-i18n="nav.about">About</a></li>
+                            <li><a href="impact.html" data-i18n="nav.impact">Impact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h4 data-i18n="footer.programs_title">Programs</h4>
+                        <ul>
+                            <li><a href="#" data-i18n="footer.program_water">Clean Water</a></li>
+                            <li><a href="#" data-i18n="footer.program_women">Women's Empowerment</a></li>
+                            <li><a href="#" data-i18n="footer.program_health">Health Outreach</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h4 data-i18n="footer.contact_title">Connect</h4>
+                        <ul>
+                            <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+                            <li><a href="contact.html#donate" data-i18n="nav.donate">Donate</a></li>
+                            <li><a href="transparency.html" data-i18n="nav.transparency">Transparency</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">f</a>
+                        <a href="#" class="social-icon" aria-label="Twitter">t</a>
+                        <a href="#" class="social-icon" aria-label="Instagram">i</a>
+                    </div>
+                    <div class="footer-tagline">
+                        <span data-i18n="footer.tagline_community">Community.</span>
+                        <strong data-i18n="footer.tagline_growth">Growth.</strong>
+                        <span data-i18n="footer.tagline_hope">Hope.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-logo">SEVO&reg;</div>
+                <div class="footer-copyright" data-i18n="footer.copyright">&copy; 2024 SEVO. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Internationalization Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/components.js"></script>
+
+    <script>
+        // Navbar scroll behavior
+        (function () {
+            const navbar = document.querySelector('.navbar');
+            const hero = document.querySelector('.hero');
+            let heroHeight = hero ? hero.offsetHeight : 400;
+
+            function updateNavbar() {
+                const scrollY = window.scrollY;
+                if (scrollY > heroHeight * 0.8) {
+                    navbar.classList.add('visible');
+                    navbar.classList.remove('hidden');
+                } else {
+                    navbar.classList.remove('visible');
+                    navbar.classList.add('hidden');
+                }
+            }
+
+            window.addEventListener('scroll', updateNavbar, { passive: true });
+            updateNavbar();
+        })();
+    </script>
+</body>
+
+</html>

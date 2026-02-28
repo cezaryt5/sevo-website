@@ -1,0 +1,234 @@
+/**
+ * SEVO Internationalization Styles
+ * RTL support and language switcher styling
+ */
+
+/* ============================================
+   LANGUAGE SWITCHER
+   ============================================ */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px;
+    margin-inline-end: 16px;
+
+    .lang-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border: none;
+        background: transparent;
+        color: var(--text-muted, #8B5A5E);
+        font-family: inherit;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        border-radius: 9999px;
+        transition: all 0.2s ease;
+    }
+
+    .lang-btn:hover {
+        background: rgba(127, 65, 69, 0.1);
+        color: var(--text-main, #7F4145);
+    }
+
+    .lang-btn.active {
+        background: var(--text-main, #7F4145);
+        color: var(--bg-color, #ffffff);
+    }
+
+    .lang-flag {
+        font-size: 1rem;
+        line-height: 1;
+    }
+
+    .lang-code {
+        font-weight: 600;
+    }
+
+    /* Mobile language switcher adjustments */
+    @media (max-width: 768px) {
+        margin-inline-end: 8px;
+
+        .lang-btn {
+            padding: 4px 8px;
+            font-size: 0.75rem;
+        }
+
+        .lang-flag {
+            font-size: 0.9rem;
+        }
+
+        .lang-code {
+            display: none;
+        }
+    }
+}
+
+/* ============================================
+   LANGUAGE-SPECIFIC TYPOGRAPHY
+   ============================================ */
+
+/* Arabic font optimization */
+[lang="ar"] body {
+    font-family: 'Noto Sans Arabic', 'Oswald', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.8;
+}
+
+[lang="ar"] h1,
+[lang="ar"] h2,
+[lang="ar"] h3,
+[lang="ar"] h4 {
+    line-height: 1.4;
+    letter-spacing: 0;
+}
+
+[lang="ar"] p {
+    line-height: 1.8;
+}
+
+/* Smaller headings for Arabic to accommodate text expansion */
+[lang="ar"] h1 {
+    font-size: 3.5rem;
+}
+
+[lang="ar"] h2 {
+    font-size: 2rem;
+}
+
+[lang="ar"] h3 {
+    font-size: 1.75rem;
+}
+
+@media (max-width: 768px) {
+    [lang="ar"] h1 {
+        font-size: 2.5rem;
+    }
+
+    [lang="ar"] h2 {
+        font-size: 1.5rem;
+    }
+
+    [lang="ar"] h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* ============================================
+   ANIMATION PAUSE FOR REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    .lang-btn {
+        transition: none;
+    }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE SUPPORT
+   ============================================ */
+@media (prefers-contrast: high) {
+    .lang-btn.active {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+}
+
+/* ============================================
+   FOCUS STYLES FOR ACCESSIBILITY
+   ============================================ */
+.lang-btn:focus-visible {
+    outline: 2px solid var(--text-main, #7F4145);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   DIRECTION-AWARE NAVBAR LAYOUT
+   ============================================ */
+
+/* Three-section navbar layout using logical properties */
+/* Layout: [Logo] ---- [Nav Links] ---- [Actions] */
+/* Mirrors automatically when dir changes between ltr and rtl */
+
+.navbar,
+.static-header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo positioned at inline-start */
+.navbar .logo,
+.static-header .logo {
+    margin-inline-end: auto;
+    flex-shrink: 0;
+}
+
+/* Primary navigation links - centered */
+.navbar .nav-links,
+.static-header .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    margin: 0 auto;
+    flex: 1;
+    max-width: fit-content;
+}
+
+/* Actions container (lang switcher + donate) - positioned at inline-end */
+.navbar .nav-actions,
+.static-header .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-inline-start: auto;
+    flex-shrink: 0;
+}
+
+/* Language switcher in navbar context */
+.navbar .nav-actions .lang-switcher,
+.static-header .nav-actions .lang-switcher {
+    margin-inline-end: 0;
+}
+
+/* Ensure nav links without actions container still work */
+.navbar .nav-links:only-child,
+.static-header .nav-links:only-child {
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar .nav-links,
+    .static-header .nav-links {
+        display: none;
+    }
+
+    .navbar .nav-actions,
+    .static-header .nav-actions {
+        gap: 8px;
+    }
+
+    .navbar .nav-actions .lang-switcher,
+    .static-header .nav-actions .lang-switcher {
+        margin-inline-end: 0;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+
+    .lang-switcher {
+        display: none !important;
+    }
+
+    [dir="rtl"] {
+        direction: rtl;
+    }
+}
