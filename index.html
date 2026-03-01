@@ -207,6 +207,114 @@
             }
         }
 
+        /* Project Modal Styles */
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .project-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            border-radius: var(--radius-card);
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            padding: 48px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 2rem;
+            color: var(--text-main);
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background-color: var(--bg-hero);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 24px;
+            font-size: 2rem;
+        }
+
+        .modal-content h4 {
+            color: var(--text-main);
+            margin: 24px 0 12px;
+            font-size: 1.25rem;
+        }
+
+        .modal-content p {
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .modal-content ul {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .modal-content li {
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .modal-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(127, 65, 69, 0.15);
+        }
+
+        .modal-images img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--radius-card);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            min-height: 350px;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .hero-placeholder::before {
             width: 140px;
             height: 140px;
@@ -743,6 +851,96 @@
             letter-spacing: 0.05em;
         }
 
+        /* Hamburger Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            padding: 8px;
+            position: relative;
+            z-index: 1100;
+            flex-shrink: 0;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-main);
+            margin: 6px auto;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 232, 204, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1050;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-main);
+            padding: 14px 24px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.2s ease;
+        }
+
+        .mobile-menu a:hover {
+            opacity: 0.7;
+        }
+
+        .mobile-menu .btn {
+            margin-top: 16px;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+        }
+
+        .mobile-menu .mobile-lang-switcher {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .container {
@@ -772,6 +970,23 @@
             .stat-item h4 {
                 font-size: 2.75rem;
             }
+
+            .initiatives-grid,
+            .project-row {
+                gap: 48px;
+            }
+
+            .initiatives-grid {
+                margin-bottom: 60px;
+            }
+
+            .project-row {
+                margin-bottom: 60px;
+            }
+
+            .footer-nav {
+                gap: 24px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -791,6 +1006,11 @@
                 font-size: 1.75rem;
             }
 
+            /* Show hamburger, hide nav links */
+            .menu-toggle {
+                display: block;
+            }
+
             .static-header .nav-links {
                 display: none;
             }
@@ -805,12 +1025,14 @@
             }
 
             .hero {
-                padding: 140px 0 50px;
+                padding: 120px 0 50px;
             }
 
             .hero-image {
-                margin-top: 50px;
-                height: 350px;
+                margin-top: 40px;
+                height: auto;
+                max-height: 400px;
+                min-height: 200px;
             }
 
             .section-headline {
@@ -821,11 +1043,15 @@
             .initiatives-grid,
             .project-row {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 32px;
+            }
+
+            .initiatives-grid {
+                margin-bottom: 48px;
             }
 
             .initiative-image {
-                min-height: 280px;
+                min-height: 220px;
                 order: 2;
             }
 
@@ -841,6 +1067,14 @@
                 order: 2;
             }
 
+            .project-row:nth-child(even) .project-image {
+                order: 2;
+            }
+
+            .project-image {
+                min-height: 220px;
+            }
+
             .stats-row {
                 flex-direction: column;
                 gap: 36px;
@@ -852,20 +1086,47 @@
             }
 
             .media-placeholder {
-                min-height: 280px;
-            }
-
-            .hero-image {
-                min-height: 300px;
+                min-height: 250px;
             }
 
             .video-placeholder {
-                min-height: 280px;
+                min-height: 250px;
             }
 
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 320px;
+                min-height: 48px;
+            }
+
+            /* Modal responsive */
+            .modal-content {
+                padding: 32px 24px;
+                margin: 10px;
+                max-height: 85vh;
+                border-radius: 16px;
+            }
+
+            .modal-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .modal-content h4 {
+                font-size: 1.1rem;
+            }
+
+            .modal-images {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .modal-images img {
+                height: 200px;
             }
 
             .footer-content {
@@ -879,7 +1140,7 @@
 
             .footer-nav {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 30px;
+                gap: 20px;
             }
 
             .footer-social {
@@ -901,6 +1162,150 @@
                 gap: 20px;
                 text-align: center;
             }
+
+            /* Touch-friendly buttons */
+            .btn {
+                min-height: 48px;
+                padding: 14px 32px;
+            }
+
+            .btn-outline {
+                min-height: 48px;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            h3 {
+                font-size: 1.4rem;
+            }
+
+            .hero {
+                padding: 100px 0 40px;
+                min-height: auto;
+            }
+
+            .hero h2 {
+                font-size: 1.15rem;
+                margin-bottom: 24px;
+            }
+
+            .hero-image {
+                margin-top: 32px;
+                border-radius: 12px;
+            }
+
+            .section-headline {
+                font-size: 1.4rem;
+                margin-bottom: 32px;
+            }
+
+            .initiatives,
+            .projects,
+            .stats-section {
+                padding: 60px 0;
+            }
+
+            .initiatives-grid,
+            .project-row {
+                gap: 24px;
+            }
+
+            .initiatives-grid {
+                margin-bottom: 40px;
+            }
+
+            .initiative-image,
+            .project-image {
+                min-height: 180px;
+            }
+
+            .stat-item h4 {
+                font-size: 2.25rem;
+            }
+
+            .cta-section {
+                padding: 60px 0;
+            }
+
+            /* Modal very small */
+            .project-modal {
+                padding: 8px;
+            }
+
+            .modal-content {
+                padding: 24px 16px;
+                margin: 4px;
+                border-radius: 12px;
+            }
+
+            .modal-content h2 {
+                font-size: 1.25rem;
+                margin-bottom: 16px;
+                padding-right: 32px;
+            }
+
+            .modal-content h4 {
+                font-size: 1rem;
+                margin: 16px 0 8px;
+            }
+
+            .modal-content p {
+                font-size: 0.95rem;
+            }
+
+            .modal-content li {
+                font-size: 0.95rem;
+            }
+
+            .modal-close {
+                top: 12px;
+                right: 12px;
+                width: 36px;
+                height: 36px;
+                font-size: 1.5rem;
+            }
+
+            .modal-images img {
+                height: 160px;
+            }
+
+            /* Footer responsive */
+            .footer-nav {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-nav-column ul {
+                padding: 0;
+            }
+
+            footer {
+                padding: 50px 0 30px;
+            }
+
+            .footer-bottom {
+                margin-top: 30px;
+                padding-top: 24px;
+            }
+
+            .footer-tagline span,
+            .footer-tagline strong {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
@@ -920,6 +1325,11 @@
             </div>
             <div class="nav-actions">
                 <a href="contact.html#donate" class="btn" data-i18n="nav.donate">Donate</a>
+                <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </nav>
     </div>
@@ -937,9 +1347,25 @@
             </div>
             <div class="nav-actions">
                 <a href="contact.html#donate" class="btn" data-i18n="nav.donate">Donate</a>
+                <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </nav>
     </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="transparency.html" data-i18n="nav.transparency">Transparency</a>
+        <a href="impact.html" data-i18n="nav.impact">Impact</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="contact.html#donate" class="btn" data-i18n="nav.donate">Donate</a>
+        <div class="mobile-lang-switcher"></div>
+    </div>
 
     <main id="main-content">
         <!-- Hero Section -->
@@ -993,7 +1419,7 @@
                             vulnerable communities.</p>
                     </div>
                     <div class="initiative-image">
-                        <img src="images/aid.png" alt="Aid Distribution" loading="lazy">
+                        <img src="images/lessons2.JPG" alt="Aid Distribution" loading="lazy">
                     </div>
                 </div>
 
@@ -1027,28 +1453,30 @@
                 <!-- Row 1: Text Left, Image Right -->
                 <div class="project-row">
                     <div class="project-text">
-                        <h3 data-i18n="home.projects_wells_title">Completed wells.</h3>
-                        <p data-i18n="home.projects_wells_desc">We've built clean water wells in rural communities to
-                            improve health and daily life. Access to clean water is a fundamental right that transforms
-                            entire communities.</p>
-                        <a href="#" class="btn btn-outline" data-i18n="home.projects_gallery">View Gallery</a>
+                        <h3 data-i18n="home.projects_market_title">From Pavements to Permanence</h3>
+                        <p data-i18n="home.projects_market_desc">Transforming women from "illegal street vendors" to
+                            "authorized traders" through fixed metal kiosks, legal recognition, and microfinance
+                            programs in Nyala's local markets.</p>
+                        <a href="#" class="btn btn-outline" data-i18n="home.projects_view_project"
+                            onclick="openProjectModal(); return false;">View Project</a>
                     </div>
-                    <div class="media-placeholder">
-                        <!-- Geometric shapes handled by CSS -->
+                    <div class="project-image">
+                        <img src="images/umbrellas.jpg" alt="Market Kiosks in Nyala" loading="lazy">
                     </div>
                 </div>
 
                 <!-- Row 2: Image Left, Text Right -->
                 <div class="project-row">
-                    <div class="media-placeholder">
-                        <!-- Geometric shapes handled by CSS -->
+                    <div class="project-image">
+                        <img src="images/training.jpg" alt="Tailoring Training Program" loading="lazy">
                     </div>
                     <div class="project-text">
-                        <h3 data-i18n="home.projects_training_title">Skills training.</h3>
-                        <p data-i18n="home.projects_training_desc">Vocational programs for women and youth to build
-                            sustainable livelihoods. Our training centers provide hands-on learning in various trades
-                            and skills.</p>
-                        <a href="#" class="btn btn-outline" data-i18n="home.projects_view">View Projects</a>
+                        <h3 data-i18n="home.projects_training_title">The 2012 Genesis: Stitching a Social Fabric</h3>
+                        <p data-i18n="home.projects_training_desc">A 2012 pilot program bringing together 30 women from
+                            Dorkti, Al Salam Refugee Camp, and Nyala to master tailoring and prove that economic
+                            empowerment is the most effective tool for peace-building.</p>
+                        <a href="#" class="btn btn-outline" data-i18n="home.projects_view"
+                            onclick="openTrainingModal(); return false;">View Project</a>
                     </div>
                 </div>
 
@@ -1068,6 +1496,110 @@
             </div>
         </section>
     </main>
+
+    <!-- Project Modal -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProjectModal()">&times;</button>
+            <h2 data-i18n="modals.market_title">From Pavements to Permanence: Securing Nyala's Marketplace</h2>
+
+            <h4 data-i18n="modals.market_problem_title">The Problem: A Life on the Edge</h4>
+            <p data-i18n="modals.market_problem_p1">For the women of Nyala's local markets (Al-Souq Al-Sha'abi),
+                business used to be a gamble, not an investment. Trading "on the ground" meant more than just physical
+                discomfort; it meant operating in a legal gray area.</p>
+            <p data-i18n="modals.market_problem_p2">Without official stalls or permits, these women faced a constant
+                cycle of instability:</p>
+            <ul>
+                <li data-i18n="modals.market_problem_li1" data-i18n-html="true"><strong>Asset Seizure:</strong>
+                    Inventory was frequently confiscated during municipal sweeps.</li>
+                <li data-i18n="modals.market_problem_li2" data-i18n-html="true"><strong>Legal Fines:</strong> Operating
+                    in the streets led to recurring fines that swallowed daily profits.</li>
+                <li data-i18n="modals.market_problem_li3" data-i18n-html="true"><strong>Exposure:</strong> No shelter
+                    meant being at the mercy of the weather, which often damaged perishable goods.</li>
+            </ul>
+
+            <h4 data-i18n="modals.market_solution_title">The Solution: Designing Legitimacy</h4>
+            <p data-i18n="modals.market_solution_p1">The "Protection and Empowerment of Women and Youth in Markets"
+                project wasn't just about providing furniture; it was about providing a legal shield. Through a
+                strategic partnership between the Women's Professional Association, Omdurman National Bank, the Youth
+                Microfinance Foundation, and the Nyala Municipality, a radical shift was implemented.</p>
+            <p data-i18n="modals.market_solution_p2">The initiative focused on three pillars:</p>
+            <ul>
+                <li data-i18n="modals.market_solution_li1" data-i18n-html="true"><strong>Physical
+                        Infrastructure:</strong> We designed and manufactured fixed metal kiosks (as seen in the
+                    images). These aren't just stalls; they are designated "official workplaces" that provide dignity
+                    and weather protection.</li>
+                <li data-i18n="modals.market_solution_li2" data-i18n-html="true"><strong>Legal Recognition:</strong> By
+                    moving into these kiosks, women shifted from "illegal street vendors" to "authorized traders." This
+                    status protects them from harassment and arbitrary fines.</li>
+                <li data-i18n="modals.market_solution_li3" data-i18n-html="true"><strong>Financial Fuel:</strong> Real
+                    growth requires capital. Beyond the stalls, participants were integrated into microfinance programs,
+                    allowing them to expand their inventory and increase their daily turnover.</li>
+            </ul>
+
+            <h4 data-i18n="modals.market_impact_title">The Impact: Stability is the New Foundation</h4>
+            <p data-i18n="modals.market_impact_p1">Today, the market looks different. The green kiosks represent more
+                than just a place to sell fruit or crafts—they represent a permanent stake in the local economy.</p>
+            <p data-i18n="modals.market_impact_p2">By solving the "root cause"—the lack of a fixed, legal location—we
+                haven't just helped these women survive another day; we've built a framework where they can finally plan
+                for the future.</p>
+
+            <div class="modal-images">
+                <img src="images/umbrellas.jpg" alt="Market Kiosk - View 1">
+                <img src="images/umbrellas1.jpg" alt="Market Kiosk - View 2">
+            </div>
+        </div>
+    </div>
+
+    <!-- Training Project Modal -->
+    <div class="project-modal" id="trainingModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeTrainingModal()">&times;</button>
+            <h2 data-i18n="modals.training_title">The 2012 Genesis: Stitching a Social Fabric</h2>
+
+            <h4 data-i18n="modals.training_intro">Before the kiosks and the large-scale market projects, there was an
+                experiment in radical coexistence. In 2012, we launched a pilot program that proved economic empowerment
+                is the most effective tool for peace-building.</h4>
+
+            <h4 data-i18n="modals.training_blueprint_title">The 30-Woman Blueprint</h4>
+            <p data-i18n="modals.training_blueprint_p1">We didn't just pick 30 trainees; we curated a micro-society. We
+                brought together:</p>
+            <ul>
+                <li data-i18n="modals.training_blueprint_li1">10 women from Dorkti (El Geneina, West Darfur)</li>
+                <li data-i18n="modals.training_blueprint_li2">10 women from Al Salam Refugee Camp</li>
+                <li data-i18n="modals.training_blueprint_li3">10 women from Nyala</li>
+            </ul>
+            <p data-i18n="modals.training_blueprint_p2">The goal was simple but profound: Tighten the social ties. By
+                placing women from different backgrounds and displacement statuses in the same room, we gave them a rare
+                chance to share lived experiences, exchange skills, and realize that their struggles—and their
+                aspirations—were identical.</p>
+
+            <h4 data-i18n="modals.training_scale_title">From Skill to Scale</h4>
+            <p data-i18n="modals.training_scale_p1">Under the guidance of UN-Habitat and UNHCR, these women mastered the
+                art of tailoring, specializing in traditional Sudanese thobes and various garments. But we knew that a
+                skill without a tool is just a hobby.</p>
+            <p data-i18n="modals.training_scale_p2">To ensure this wasn't just another short-lived workshop, we secured
+                direct investment from local banks. Upon graduation:</p>
+            <ul>
+                <li data-i18n="modals.training_scale_li1" data-i18n-html="true"><strong>Asset Ownership:</strong> Every
+                    single woman was equipped with her own professional sewing machine.</li>
+                <li data-i18n="modals.training_scale_li2" data-i18n-html="true"><strong>Business Autonomy:</strong> They
+                    didn't leave as employees; they left as business owners with the capital to start their own
+                    workshops.</li>
+            </ul>
+
+            <h4 data-i18n="modals.training_legacy_title">The Legacy</h4>
+            <p data-i18n="modals.training_legacy_p1">This 2012 cohort was the "proof of concept" for SEVO's current
+                model. It proved that when you give a woman a machine, you don't just feed a family—you stabilize a
+                community. These 30 women became the ambassadors of a new, integrated Darfur, proving that the needle
+                and thread could mend more than just cloth; they could mend a social fabric torn by conflict.</p>
+
+            <div class="modal-images">
+                <img src="images/lessons5.jpg" alt="Tailoring Training - Women with Sewing Machines">
+                <img src="images/lessons6.jpg" alt="Tailoring Training - Graduation Ceremony">
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1147,6 +1679,106 @@
             window.addEventListener('scroll', updateNavbar, { passive: true });
             updateNavbar();
         })();
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const toggles = document.querySelectorAll('.menu-toggle');
+            const isOpen = menu.classList.contains('active');
+
+            if (isOpen) {
+                menu.classList.remove('active');
+                toggles.forEach(t => t.classList.remove('active'));
+                document.body.style.overflow = '';
+            } else {
+                menu.classList.add('active');
+                toggles.forEach(t => t.classList.add('active'));
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', function () {
+                const menu = document.getElementById('mobileMenu');
+                const toggles = document.querySelectorAll('.menu-toggle');
+                menu.classList.remove('active');
+                toggles.forEach(t => t.classList.remove('active'));
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Insert language switcher into mobile menu
+        (function () {
+            const mobileLangContainer = document.querySelector('.mobile-lang-switcher');
+            if (mobileLangContainer) {
+                mobileLangContainer.innerHTML = `
+                    <div class="lang-switcher" role="group" aria-label="Select language">
+                        <button class="lang-btn" data-lang="en" aria-label="English" title="English">
+                            <span class="lang-flag">🇬🇧</span>
+                            <span class="lang-code">EN</span>
+                        </button>
+                        <button class="lang-btn" data-lang="ar" aria-label="العربية" title="العربية">
+                            <span class="lang-flag">🇸🇩</span>
+                            <span class="lang-code">AR</span>
+                        </button>
+                    </div>
+                `;
+            }
+        })();
+
+        // Project Modal Functions
+        function openProjectModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('projectModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeProjectModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+                closeTrainingModal();
+                // Also close mobile menu
+                const menu = document.getElementById('mobileMenu');
+                if (menu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+
+        // Training Project Modal Functions
+        function openTrainingModal() {
+            const modal = document.getElementById('trainingModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTrainingModal() {
+            const modal = document.getElementById('trainingModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close training modal when clicking outside
+        document.getElementById('trainingModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeTrainingModal();
+            }
+        });
     </script>
 </body>
 
