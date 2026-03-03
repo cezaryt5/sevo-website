@@ -158,6 +158,7 @@
             pointer-events: auto;
             max-width: 1400px;
             margin: 0 auto;
+            transition: transform 0.35s ease, opacity 0.35s ease;
         }
 
         .navbar.visible {
@@ -1322,7 +1323,7 @@
 
             function updateNavbar() {
                 const scrollY = window.scrollY;
-                if (scrollY > heroHeight * 0.8) {
+                if (scrollY > heroHeight * 0.3) {
                     navbar.classList.add('visible');
                     navbar.classList.remove('hidden');
                 } else {

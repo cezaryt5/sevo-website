@@ -24,7 +24,7 @@
             --bg-color: #ffffff;
             --bg-hero: #ffe8cc;
             --bg-highlight-1: #fff5f5;
-            --bg-highlight-2: #fff5f5;
+            --bg-highlight-2: #fffae8;
             --text-main: #7F4145;
             --text-muted: #8B5A5E;
             --text-light: #A67073;
@@ -391,6 +391,7 @@
             pointer-events: auto;
             max-width: 1400px;
             margin: 0 auto;
+            transition: transform 0.35s ease, opacity 0.35s ease;
         }
 
         .navbar.visible {
@@ -408,6 +409,20 @@
             font-size: 1.3rem;
             letter-spacing: 0.05em;
             color: var(--text-main);
+        }
+
+        .navbar .logo-img {
+            height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        /* Logo in static/hero-blended header — smaller so it doesn't dominate */
+        .static-header .logo-img,
+        .hero-header .logo-img {
+            height: 48px;
+            width: auto;
+            display: block;
         }
 
         .navbar .nav-links {
@@ -555,7 +570,7 @@
         /* Ongoing Initiatives */
         .initiatives {
             padding: var(--spacing-section) 0;
-            background-color: var(--bg-highlight-1);
+            background-color: var(--bg-highlight-2);
         }
 
         .initiatives-grid {
@@ -611,11 +626,26 @@
             margin-bottom: 28px;
         }
 
-        /* Mission Banner */
+        /* Message / Dedication Banner */
         .mission-banner {
-            padding: 80px 0;
+            padding: 100px 0;
             background-color: var(--bg-color);
             text-align: center;
+            position: relative;
+        }
+
+        .mission-banner::before {
+            content: '\201C';
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 9rem;
+            line-height: 1;
+            color: var(--text-main);
+            opacity: 0.07;
+            pointer-events: none;
         }
 
         .mission-banner .mission-label {
@@ -625,19 +655,23 @@
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--text-light);
-            margin-bottom: 20px;
+            margin-bottom: 28px;
             border: 1px solid rgba(127, 65, 69, 0.25);
             padding: 6px 18px;
             border-radius: 9999px;
         }
 
         .mission-banner h2 {
-            font-size: 2.1rem;
-            max-width: 820px;
-            margin: 0 auto 20px;
-            line-height: 1.35;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 400;
+            font-style: italic;
+            max-width: 860px;
+            margin: 0 auto;
+            line-height: 2;
             text-transform: none;
             letter-spacing: 0.01em;
+            color: var(--text-main);
         }
 
         .mission-banner p {
@@ -650,7 +684,7 @@
         /* Partners Strip — Marquee */
         .partners-strip {
             padding: 60px 0;
-            background-color: var(--bg-hero);
+            background-color: var(--bg-highlight-2);
             border-top: 1px solid rgba(127, 65, 69, 0.12);
             border-bottom: 1px solid rgba(127, 65, 69, 0.12);
             overflow: hidden;
@@ -678,7 +712,7 @@
             align-items: center;
             gap: 72px;
             width: max-content;
-            animation: partners-scroll 28s linear infinite;
+            animation: partners-scroll 42s linear infinite;
         }
 
         /* Pause on hover */
@@ -756,7 +790,7 @@
         /* Stats Section */
         .stats-section {
             padding: var(--spacing-section) 0;
-            background-color: var(--bg-highlight-2);
+            background-color: var(--bg-color);
         }
 
         .video-placeholder {
@@ -949,7 +983,7 @@
         /* Completed Projects (ZigZag) */
         .projects {
             padding: var(--spacing-section) 0;
-            background-color: var(--bg-highlight-1);
+            background-color: var(--bg-highlight-2);
         }
 
         .project-row {
@@ -1686,7 +1720,7 @@
     <!-- Floating Navbar -->
     <div class="navbar-wrapper">
         <nav class="navbar">
-            <div class="logo">SEVO&reg;</div>
+            <a href="index.html" class="logo"><img src="images/logo.png" alt="SEVO" class="logo-img"></a>
             <div class="nav-links">
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="about.html" data-i18n="nav.about">About</a>
@@ -1708,7 +1742,7 @@
     <!-- Static Header (Hero State) -->
     <header class="static-header">
         <nav>
-            <div class="logo">SEVO&reg;</div>
+            <a href="index.html" class="logo"><img src="images/logo.png" alt="SEVO" class="logo-img"></a>
             <div class="nav-links">
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="about.html" data-i18n="nav.about">About</a>
@@ -1757,12 +1791,12 @@
         <!-- Mission Banner -->
         <section class="mission-banner">
             <div class="container">
-                <span class="mission-label" data-i18n="home.mission_label">Our Mission</span>
-                <h2 data-i18n="home.mission_statement">Simat Elkhair Voluntary Organization exists to uplift Sudanese
-                    women and rebuild communities — through economic opportunity, clean water, and education — one
-                    family at a time.</h2>
-                <p data-i18n="home.mission_sub">Founded in 2009, SEVO operates at the intersection of humanitarian aid
-                    and sustainable development, working alongside international partners to create lasting change.</p>
+                <span class="mission-label" data-i18n="home.mission_label">الرسالة</span>
+                <h2 data-i18n="home.mission_statement">الي المثابرين المبدعين في ربوع بلادهم من نساء ورجال اولئك اللذين
+                    يذدادون صلابة وعزيمة وصبرا كلما ازدادة عليهم ضغوطات الحياة ضراوة وقساوة .. الي عصب الحياة : من سخرهم
+                    الله لجعل حياتنا سهلة بما يوفرونه من احتياجاتنا الضرورية من سلع وخدمات متاحة علي الدوام في متناول
+                    الجميع .... الي اصحاب الاعمال والمشروعات الصغيرة والصغرى. ومن يحلم حلمهم ومن يحمل همهم وممارسي
+                    التنمية .</h2>
             </div>
         </section>
 
@@ -1789,6 +1823,16 @@
                     <a href="#" class="partner-logo" aria-label="Omdurman Islamic Bank">
                         <img src="images/Omdurman Islamic bank.png" alt="Omdurman Islamic Bank">
                     </a>
+                    <a href="#" class="partner-logo" aria-label="AWDF">
+                        <img src="images/awdf.png" alt="African Women's Development Fund">
+                    </a>
+                    <a href="https://www.iom.int" target="_blank" rel="noopener" class="partner-logo" aria-label="IOM">
+                        <img src="images/IOM.png" alt="IOM - UN Migration">
+                    </a>
+                    <a href="https://www.unfpa.org" target="_blank" rel="noopener" class="partner-logo"
+                        aria-label="UNFPA">
+                        <img src="images/UNFPA_logo.svg.png" alt="UNFPA">
+                    </a>
                     <div class="partner-text-logo" aria-label="Family Bank Nyala">Family Bank<br>Nyala</div>
                     <div class="partner-text-logo" aria-label="مؤسسة الشباب للتمويل الاصغر">مؤسسة الشباب<br>للتمويل
                         الاصغر</div>
@@ -1806,6 +1850,17 @@
                     </a>
                     <a href="#" class="partner-logo" aria-hidden="true">
                         <img src="images/Omdurman Islamic bank.png" alt="" loading="lazy">
+                    </a>
+                    <a href="#" class="partner-logo" aria-label="AWDF" aria-hidden="true">
+                        <img src="images/awdf.png" alt="" loading="lazy">
+                    </a>
+                    <a href="https://www.iom.int" target="_blank" rel="noopener" class="partner-logo" aria-label="IOM"
+                        aria-hidden="true">
+                        <img src="images/IOM.png" alt="" loading="lazy">
+                    </a>
+                    <a href="https://www.unfpa.org" target="_blank" rel="noopener" class="partner-logo"
+                        aria-label="UNFPA" aria-hidden="true">
+                        <img src="images/UNFPA_logo.svg.png" alt="" loading="lazy">
                     </a>
                     <div class="partner-text-logo" aria-hidden="true">Family Bank<br>Nyala</div>
                     <div class="partner-text-logo" aria-hidden="true">مؤسسة الشباب<br>للتمويل الاصغر</div>
@@ -2092,7 +2147,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo-section">
-                    <img src="logo.png" alt="SEVO - Simat Elkhair Voluntary Organization" class="footer-logo-img">
+                    <img src="images/logo.png" alt="SEVO - Simat Elkhair Voluntary Organization"
+                        class="footer-logo-img">
                 </div>
                 <div class="footer-nav">
                     <div class="footer-nav-column">
@@ -2153,7 +2209,7 @@
 
             function updateNavbar() {
                 const scrollY = window.scrollY;
-                if (scrollY > heroHeight * 0.5) {
+                if (scrollY > heroHeight * 0.3) {
                     navbar.classList.add('visible');
                     navbar.classList.remove('hidden');
                 } else {
