@@ -42,7 +42,23 @@
     "cta_title": "Make a difference today.",
     "cta_desc": "Your support helps us continue our mission of empowering Sudanese women and communities. Every contribution counts.",
     "cta_donate": "Donate Now",
-    "cta_contact": "Contact Us"
+    "cta_contact": "Contact Us",
+    "mission_label": "Our Mission",
+    "mission_statement": "Simat Elkhair Voluntary Organization exists to uplift Sudanese women and rebuild communities \u2014 through economic opportunity, clean water, and education \u2014 one family at a time.",
+    "mission_sub": "Founded in 2009, SEVO operates at the intersection of humanitarian aid and sustainable development, working alongside international partners to create lasting change.",
+    "partners_label": "Trusted Partners & Supporters",
+    "testimonials_title": "Voices from the Field",
+    "testimonial_1_text": "After completing SEVO's tailoring program, I opened my own workshop in Nyala. Today I employ three other women and can finally pay for my children's school fees. SEVO didn't just give me a skill \u2014 they gave me a future.",
+    "testimonial_1_name": "Mariam Abdalla",
+    "testimonial_1_location": "Nyala, South Darfur",
+    "testimonial_2_text": "Before the well project, my daughters walked three hours every morning for water. Now that water is at our doorstep, they go to school instead. What SEVO built in our village changed everything.",
+    "testimonial_2_name": "Zainab Ibrahim",
+    "testimonial_2_location": "Al-Rih Village, North Kordofan",
+    "newsletter_title": "Stay Connected",
+    "newsletter_desc": "Get updates on our projects, stories from the field, and ways to help delivered directly to your inbox.",
+    "newsletter_placeholder": "Your email address",
+    "newsletter_cta": "Subscribe",
+    "newsletter_success": "\u2713 Thank you for subscribing!"
   },
   "modals": {
     "market_title": "From Pavements to Permanence: Securing Nyala's Marketplace",
@@ -215,7 +231,7 @@
     "program_health": "Health Outreach",
     "program_education": "Education Support",
     "contact_title": "Connect",
-    "copyright": "© 2024 SEVO. All rights reserved.",
+    "copyright": "© 2025 SEVO. All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Use"
   }
