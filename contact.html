@@ -17,7 +17,13 @@
 
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
+    <!-- Favicon and PWA Manifest -->
+    <link rel="icon" type="image/png" href="images/logo2.png">
+    <link rel="mask-icon" href="images/logo2.png" color="#7F4145">
+    <link rel="apple-touch-icon" href="images/logo2.png">
+    <link rel="manifest" href="favicon.webmanifest">
+    
     <!-- Internationalization Styles -->
     <link rel="stylesheet" href="css/i18n.css">
 
@@ -1028,7 +1034,7 @@
     <!-- Floating Navbar -->
     <div class="navbar-wrapper">
         <nav class="navbar">
-            <div class="logo">SEVO&reg;</div>
+            <a href="index.html" class="logo"><img src="images/logo.png" alt="SEVO" class="logo-img"></a>
             <div class="nav-links">
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="about.html" data-i18n="nav.about">About</a>
@@ -1050,7 +1056,7 @@
     <!-- Static Header (Hero State) -->
     <header class="static-header">
         <nav>
-            <div class="logo">SEVO&reg;</div>
+            <a href="index.html" class="logo"><img src="images/logo.png" alt="SEVO" class="logo-img"></a>
             <div class="nav-links">
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="about.html" data-i18n="nav.about">About</a>
@@ -1396,6 +1402,11 @@
                         </button>
                     </div>
                 `;
+
+                // Re-initialize language switcher events for the newly added switcher
+                if (window.SEVO && window.SEVO.i18n && window.SEVO.i18n.reinitializeSwitchers) {
+                    window.SEVO.i18n.reinitializeSwitchers();
+                }
             }
         })();
     </script>

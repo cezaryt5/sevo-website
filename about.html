@@ -15,8 +15,18 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
 
+    <!-- Favicon and PWA Manifest -->
+    <link rel="icon" type="image/png" href="images/logo2.png">
+    <link rel="mask-icon" href="images/logo2.png" color="#7F4145">
+    <link rel="apple-touch-icon" href="images/logo2.png">
+    <link rel="manifest" href="favicon.webmanifest">
+    
     <!-- Internationalization Styles -->
     <link rel="stylesheet" href="css/i18n.css">
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <style>
         /* CSS Reset & Variables */
@@ -180,6 +190,19 @@
             font-size: 1.3rem;
             letter-spacing: 0.05em;
             color: var(--text-main);
+        }
+
+        .navbar .logo-img {
+            height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        /* Logo in static/hero-blended header */
+        .static-header .logo-img {
+            height: 48px;
+            width: auto;
+            display: block;
         }
 
         .navbar .nav-links {
@@ -346,9 +369,82 @@
         }
 
         .about-image {
+            width: 100%;
+            height: 100%;
+            min-height: 450px;
+            object-fit: cover;
+            border-radius: var(--radius-card);
+            transition: transform 0.3s ease;
+        }
+
+        .about-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Media placeholder matching design system */
+        .media-placeholder {
             background-color: var(--placeholder-bg);
             border-radius: var(--radius-card);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
             min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-color: var(--placeholder-shape);
+            border-radius: 50%;
+            top: 25%;
+            inset-inline-start: 20%;
+        }
+
+        .media-placeholder::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: var(--placeholder-shape);
+            bottom: 25%;
+            inset-inline-end: 20%;
+            transform: rotate(45deg);
+        }
+
+        .media-placeholder .shape-third {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: var(--placeholder-shape);
+            top: 50%;
+            inset-inline-start: 50%;
+            transform: translate(-50%, -50%) rotate(15deg);
+            border-radius: 12px;
+            opacity: 0.8;
+        }
+
+        .media-placeholder .shape-accent {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--text-main), var(--placeholder-shape));
+            border-radius: 50%;
+            bottom: 15%;
+            inset-inline-start: 50%;
+            transform: translateX(-50%);
+            opacity: 0.5;
+            animation: pulse-accent 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-accent {
+            0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.75; transform: translateX(-50%) scale(1.15); }
         }
 
         /* Stats Section */
@@ -477,6 +573,8 @@
             border-radius: 50%;
             background-color: var(--placeholder-bg);
             margin: 0 auto 20px;
+            object-fit: cover;
+            display: block;
         }
 
         .team-member h4 {
@@ -490,38 +588,207 @@
             letter-spacing: 0.05em;
         }
 
-        /* Partners */
-        .partners-section {
-            padding: var(--spacing-section) 0;
-            background-color: var(--bg-color);
+        /* Partners Strip — Marquee */
+        .partners-strip {
+            padding: 60px 0;
+            background-color: var(--bg-highlight-2);
+            border-top: 1px solid rgba(127, 65, 69, 0.12);
+            border-bottom: 1px solid rgba(127, 65, 69, 0.12);
+            overflow: hidden;
         }
 
-        .partners-section h2 {
+        .partners-label {
             text-align: center;
-            margin-bottom: 24px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 36px;
         }
 
-        .partners-intro {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 60px;
+        /* Marquee outer wrapper */
+        .partners-marquee-wrapper {
+            overflow: hidden;
+            width: 100%;
         }
 
-        .partners-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
+        /* Scrolling track — duplicated content for seamless loop */
+        .partners-marquee-track {
+            display: flex;
+            align-items: center;
+            gap: 72px;
+            width: max-content;
+            animation: partners-scroll 42s linear infinite;
+        }
+
+        /* Pause on hover */
+        .partners-marquee-wrapper:hover .partners-marquee-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes partners-scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Respect reduced-motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .partners-marquee-track {
+                animation: none;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 40px 60px;
+                padding: 0 40px;
+            }
         }
 
         .partner-logo {
-            height: 80px;
-            background-color: var(--placeholder-bg);
-            border-radius: var(--radius-card);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            opacity: 0.7;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            filter: grayscale(40%);
+            flex-shrink: 0;
+        }
+
+        .partner-logo:hover {
+            opacity: 1;
+            transform: scale(1.07);
+            filter: grayscale(0%);
+        }
+
+        .partner-logo img {
+            height: 52px;
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .partner-text-logo {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 0.88rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            border: 1.5px solid rgba(127, 65, 69, 0.35);
+            padding: 10px 20px;
+            border-radius: 8px;
+            white-space: nowrap;
+            text-align: center;
+            line-height: 1.3;
+            opacity: 0.75;
+            flex-shrink: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .partner-text-logo:hover {
+            opacity: 1;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background-color: var(--bg-hero);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 36px;
+            font-size: 1.15rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 80px 0;
+            background-color: var(--text-main);
+            text-align: center;
+        }
+
+        .newsletter-section h2 {
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-size: 2rem;
+        }
+
+        .newsletter-section p {
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.05rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input[type="email"] {
+            flex: 1;
+            padding: 14px 22px;
+            border: none;
+            border-radius: var(--radius-btn);
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text-main);
+            outline: none;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .newsletter-form input[type="email"]::placeholder {
+            color: var(--text-light);
+        }
+
+        .newsletter-form .btn-newsletter {
+            background: var(--bg-hero);
+            color: var(--text-main);
+            padding: 14px 28px;
+            border-radius: var(--radius-btn);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .newsletter-form .btn-newsletter:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .newsletter-success {
+            display: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin-top: 16px;
         }
 
         /* Footer */
@@ -848,6 +1115,32 @@
                 font-size: 1.5rem;
             }
 
+            /* CTA Section */
+            .cta-section {
+                padding: 60px 0;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 320px;
+                min-height: 48px;
+            }
+
+            /* Newsletter Section */
+            .newsletter-section {
+                padding: 60px 0;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                padding: 0 16px;
+            }
+
             /* Show hamburger, hide nav links */
             .menu-toggle {
                 display: block;
@@ -908,7 +1201,7 @@
     <!-- Floating Navbar -->
     <div class="navbar-wrapper">
         <nav class="navbar">
-            <div class="logo">SEVO&reg;</div>
+            <a href="index.html" class="logo"><img src="images/logo.png" alt="SEVO" class="logo-img"></a>
             <div class="nav-links">
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="about.html" class="active" data-i18n="nav.about">About</a>
@@ -930,7 +1223,7 @@
     <!-- Static Header (Hero State) -->
     <header class="static-header">
         <nav>
-            <div class="logo">SEVO&reg;</div>
+            <a href="index.html" class="logo"><img src="images/logo.png" alt="SEVO" class="logo-img"></a>
             <div class="nav-links">
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="about.html" class="active" data-i18n="nav.about">About</a>
@@ -983,10 +1276,7 @@
                             nationwide organization with over 350 active volunteers and countless success stories across
                             Sudan.</p>
                     </div>
-                    <div class="about-image" role="img" aria-label="SEVO Community Work" data-i18n="about.intro_alt"
-                        data-i18n-attr="aria-label">
-                        <!-- Image placeholder -->
-                    </div>
+                        <img src="images/org.jpg" alt="SEVO Community Work" class="about-image" role="img" data-i18n="about.intro_alt" data-i18n-attr="aria-label">
                 </div>
             </div>
         </section>
@@ -1065,7 +1355,7 @@
                         <div class="timeline-year">2015</div>
                         <div class="timeline-content">
                             <h4 data-i18n="about.history_2015_title">Skills Training Center</h4>
-                            <p data-i18n="about.history_2015_desc">Opened our first vocational training center,
+                            <p data-i18n="about.history_2015_desc">Opened our first vocational training center called Sima modern workshop,
                                 empowering women with marketable skills.</p>
                         </div>
                     </div>
@@ -1095,51 +1385,123 @@
                 <h2 data-i18n="about.team_title">Our Team</h2>
                 <div class="team-grid">
                     <div class="team-member">
-                        <div class="team-photo"></div>
-                        <h4 data-i18n="about.team_1_name">Amal Hassan</h4>
+                        <img src="images/MariamIbrahim.jpeg" alt="Mariam Ibrahim" class="team-photo">
+                        <h4 data-i18n="about.team_1_name">Mariam Ibrahim</h4>
                         <p data-i18n="about.team_1_role">Executive Director</p>
                     </div>
                     <div class="team-member">
-                        <div class="team-photo"></div>
-                        <h4 data-i18n="about.team_2_name">Fatima Ali</h4>
+                        <img src="images/Awadia.jpeg" alt="Awadia Hammad" class="team-photo">
+                        <h4 data-i18n="about.team_2_name">Awadia Hammad</h4>
                         <p data-i18n="about.team_2_role">Programs Manager</p>
                     </div>
                     <div class="team-member">
-                        <div class="team-photo"></div>
-                        <h4 data-i18n="about.team_3_name">Omer Ibrahim</h4>
+                        <img src="images/Al-sarah.jpeg" alt="Al Sarah Mohamed" class="team-photo">
+                        <h4 data-i18n="about.team_3_name">Al Sarah Mohamed</h4>
                         <p data-i18n="about.team_3_role">Operations Director</p>
                     </div>
                     <div class="team-member">
-                        <div class="team-photo"></div>
-                        <h4 data-i18n="about.team_4_name">Sara Mohamed</h4>
+                        <img src="images/Ne'emat.jpeg" alt="Ne'emat Ahmed" class="team-photo">
+                        <h4 data-i18n="about.team_4_name">Ne'emat Ahmed</h4>
                         <p data-i18n="about.team_4_role">Community Outreach</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Partners -->
-        <section class="partners-section">
+        <!-- Partners Strip -->
+        <section class="partners-strip">
             <div class="container">
-                <h2 data-i18n="about.partners_title">Our Partners</h2>
-                <p class="partners-intro" data-i18n="about.partners_desc">We collaborate with local and international
-                    organizations to maximize our impact.</p>
-                <div class="partners-grid">
-                    <div class="partner-logo">Partner 1</div>
-                    <div class="partner-logo">Partner 2</div>
-                    <div class="partner-logo">Partner 3</div>
-                    <div class="partner-logo">Partner 4</div>
+                <p class="partners-label" data-i18n="about.partners_label">Trusted Partners &amp; Supporters</p>
+            </div>
+            <div class="partners-marquee-wrapper" aria-label="Partners and supporters">
+                <div class="partners-marquee-track">
+                    <a href="https://unhabitat.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UN-Habitat">
+                        <img src="images/unhabitat.png" alt="UN-Habitat">
+                    </a>
+                    <a href="https://www.unhcr.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UNHCR">
+                        <img src="images/UNHCR.svg.png" alt="UNHCR">
+                    </a>
+                    <a href="#" class="partner-logo" aria-label="Kimse Yok Mu">
+                        <img src="images/kimse-yok-mu-logo.png" alt="Kimse Yok Mu">
+                    </a>
+                    <a href="#" class="partner-logo" aria-label="Omdurman Islamic Bank">
+                        <img src="images/Omdurman Islamic bank.png" alt="Omdurman Islamic Bank">
+                    </a>
+                    <a href="#" class="partner-logo" aria-label="AWDF">
+                        <img src="images/awdf.png" alt="African Women's Development Fund">
+                    </a>
+                    <a href="https://www.iom.int" target="_blank" rel="noopener" class="partner-logo" aria-label="IOM">
+                        <img src="images/IOM.png" alt="IOM - UN Migration">
+                    </a>
+                    <a href="https://www.unfpa.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UNFPA">
+                        <img src="images/UNFPA_logo.svg.png" alt="UNFPA">
+                    </a>
+                    <div class="partner-text-logo" aria-label="Family Bank Nyala">Family Bank<br>Nyala</div>
+                    <div class="partner-text-logo" aria-label="مؤسسة الشباب للتمويل الاصغر">مؤسسة الشباب<br>للتمويل الاصغر</div>
+                    <a href="https://unhabitat.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UN-Habitat" aria-hidden="true">
+                        <img src="images/unhabitat.png" alt="" loading="lazy">
+                    </a>
+                    <a href="https://www.unhcr.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UNHCR" aria-hidden="true">
+                        <img src="images/UNHCR.svg.png" alt="" loading="lazy">
+                    </a>
+                    <a href="#" class="partner-logo" aria-hidden="true">
+                        <img src="images/kimse-yok-mu-logo.png" alt="" loading="lazy">
+                    </a>
+                    <a href="#" class="partner-logo" aria-hidden="true">
+                        <img src="images/Omdurman Islamic bank.png" alt="" loading="lazy">
+                    </a>
+                    <a href="#" class="partner-logo" aria-label="AWDF" aria-hidden="true">
+                        <img src="images/awdf.png" alt="" loading="lazy">
+                    </a>
+                    <a href="https://www.iom.int" target="_blank" rel="noopener" class="partner-logo" aria-label="IOM" aria-hidden="true">
+                        <img src="images/IOM.png" alt="" loading="lazy">
+                    </a>
+                    <a href="https://www.unfpa.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UNFPA" aria-hidden="true">
+                        <img src="images/UNFPA_logo.svg.png" alt="" loading="lazy">
+                    </a>
+                    <div class="partner-text-logo" aria-hidden="true">Family Bank<br>Nyala</div>
+                    <div class="partner-text-logo" aria-hidden="true">مؤسسة الشباب<br>للتمويل الاصغر</div>
                 </div>
             </div>
         </section>
+
     </main>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 data-i18n="home.cta_title">Make a difference today.</h2>
+            <p data-i18n="home.cta_desc">Your support helps us continue our mission of empowering Sudanese women and
+                communities. Every contribution counts.</p>
+            <div class="cta-buttons">
+                <a href="contact.html#donate" class="btn" data-i18n="home.cta_donate">Donate Now</a>
+                <a href="contact.html" class="btn btn-outline" data-i18n="home.cta_contact">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2 data-i18n="home.newsletter_title">Stay Connected</h2>
+            <p data-i18n="home.newsletter_desc">Get updates on our projects, stories from the field, and ways to
+                help delivered directly to your inbox.</p>
+            <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)" novalidate>
+                <input type="email" id="newsletterEmail" data-i18n-placeholder="home.newsletter_placeholder"
+                    placeholder="Your email address" required aria-label="Email address">
+                <button type="submit" class="btn-newsletter" data-i18n="home.newsletter_cta">Subscribe</button>
+            </form>
+            <p class="newsletter-success" id="newsletterSuccess" data-i18n="home.newsletter_success">✓ Thank you for
+                subscribing!</p>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo-section">
-                    <img src="logo.png" alt="SEVO - Simat Elkhair Voluntary Organization" class="footer-logo-img">
+                    <img src="images/logo.png" alt="SEVO - Simat Elkhair Voluntary Organization" class="footer-logo-img">
                 </div>
                 <div class="footer-nav">
                     <div class="footer-nav-column">
@@ -1257,8 +1619,212 @@
                         </button>
                     </div>
                 `;
+
+                // Re-initialize language switcher events for the newly added switcher
+                if (window.SEVO && window.SEVO.i18n && window.SEVO.i18n.reinitializeSwitchers) {
+                    window.SEVO.i18n.reinitializeSwitchers();
+                }
             }
         })();
+
+        // Newsletter form handler
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('newsletterEmail');
+            const successMsg = document.getElementById('newsletterSuccess');
+            const form = document.getElementById('newsletterForm');
+            
+            if (emailInput && emailInput.value) {
+                form.style.display = 'none';
+                if (successMsg) {
+                    successMsg.style.display = 'block';
+                }
+            }
+        }
+
+        // GSAP Animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Register ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero section animations
+            gsap.from('.hero h1', {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.hero-subtitle', {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                delay: 0.2,
+                ease: 'power3.out'
+            });
+
+            // About intro animation
+            gsap.from('.about-text', {
+                scrollTrigger: {
+                    trigger: '.about-intro',
+                    start: 'top 70%'
+                },
+                x: -50,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.about-image', {
+                scrollTrigger: {
+                    trigger: '.about-intro',
+                    start: 'top 70%'
+                },
+                x: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: 0.2,
+                ease: 'power3.out'
+            });
+
+            // Stats section animation
+            gsap.from('.stat-box', {
+                scrollTrigger: {
+                    trigger: '.stats-section',
+                    start: 'top 70%'
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out'
+            });
+
+            // Mission/Vision/Values cards animation
+            gsap.from('.mvv-card', {
+                scrollTrigger: {
+                    trigger: '.mvv-section',
+                    start: 'top 70%'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+
+            // Timeline items animation
+            gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 80%'
+                    },
+                    x: -30,
+                    opacity: 0,
+                    duration: 0.6,
+                    delay: i * 0.1,
+                    ease: 'power3.out'
+                });
+            });
+
+            // Team members animation
+            gsap.from('.team-member', {
+                scrollTrigger: {
+                    trigger: '.team-section',
+                    start: 'top 70%'
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: 'power3.out'
+            });
+
+            // Partners marquee animation
+            gsap.from('.partners-marquee-track', {
+                scrollTrigger: {
+                    trigger: '.partners-strip',
+                    start: 'top 80%'
+                },
+                x: -100,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            // CTA section animation
+            gsap.from('.cta-section h2', {
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top 70%'
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.cta-section p', {
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top 70%'
+                },
+                y: 20,
+                opacity: 0,
+                duration: 0.6,
+                delay: 0.1,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.cta-buttons', {
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top 70%'
+                },
+                y: 20,
+                opacity: 0,
+                duration: 0.6,
+                delay: 0.2,
+                ease: 'power3.out'
+            });
+
+            // Newsletter section animation
+            gsap.from('.newsletter-section h2', {
+                scrollTrigger: {
+                    trigger: '.newsletter-section',
+                    start: 'top 70%'
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.newsletter-section p', {
+                scrollTrigger: {
+                    trigger: '.newsletter-section',
+                    start: 'top 70%'
+                },
+                y: 20,
+                opacity: 0,
+                duration: 0.6,
+                delay: 0.1,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.newsletter-form', {
+                scrollTrigger: {
+                    trigger: '.newsletter-section',
+                    start: 'top 70%'
+                },
+                y: 20,
+                opacity: 0,
+                duration: 0.6,
+                delay: 0.2,
+                ease: 'power3.out'
+            });
+        });
     </script>
 </body>
 

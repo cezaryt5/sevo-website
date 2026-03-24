@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n-title="home.hero_title">SEVO - Empowering Sudanese Women</title>
+    <link rel="icon" type="image/png" href="images/logo2.png">
     <meta name="description" data-i18n-content="meta.site_description"
         content="Simat Elkhair Voluntary Organization - Empowering Sudanese women through community, growth, and hope.">
 
@@ -17,6 +18,10 @@
 
     <!-- Internationalization Styles -->
     <link rel="stylesheet" href="css/i18n.css">
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <style>
         /* CSS Reset & Variables */
@@ -569,7 +574,7 @@
 
         /* Ongoing Initiatives */
         .initiatives {
-            padding: var(--spacing-section) 0;
+            padding: 60px 0;
             background-color: var(--bg-highlight-2);
         }
 
@@ -786,10 +791,10 @@
         .partner-text-logo:hover {
             opacity: 1;
         }
+        
 
-        /* Stats Section */
         .stats-section {
-            padding: var(--spacing-section) 0;
+            padding: 40px 0;
             background-color: var(--bg-color);
         }
 
@@ -827,7 +832,7 @@
 
         /* Testimonials Section */
         .testimonials {
-            padding: var(--spacing-section) 0;
+            padding: 60px 0;
             background-color: var(--bg-color);
         }
 
@@ -1006,6 +1011,11 @@
             font-size: 1.1rem;
             line-height: 1.7;
             margin-bottom: 28px;
+        }
+
+        .projects-cta {
+            text-align: center;
+            margin-top: 40px;
         }
 
         /* CTA Section */
@@ -1867,6 +1877,8 @@
                 </div>
             </div>
         </section>
+        
+
 
         <!-- Ongoing Initiatives -->
         <section class="initiatives" id="about">
@@ -1877,9 +1889,8 @@
                 <div class="initiatives-grid">
                     <div class="project-text">
                         <h3 data-i18n="home.initiatives_title">Ongoing Initiatives</h3>
-                        <p data-i18n="home.initiatives_desc">Discover our latest projects—sustainable agriculture,
-                            health outreach, youth engagement and more—making a real impact in Sudanese communities
-                            across the country.</p>
+                        <p data-i18n="home.initiatives_desc">It is a pleasure to intertwine all efforts to economically empower women in the Arab world, African continent, and globally. Our mission is to create an aware generation of girls who can start their own projects based on knowledge and training.</p>
+                        <a href="about.html" class="btn btn-primary" data-i18n="home.initiatives_view_history">View History</a>
                     </div>
                     <div class="initiative-image">
                         <img src="images/confrence.PNG" alt="Conference" loading="lazy">
@@ -1893,9 +1904,8 @@
                     </div>
                     <div class="project-text">
                         <h3 data-i18n="home.initiatives_community_title">Community Empowerment</h3>
-                        <p data-i18n="home.initiatives_community_desc">Building stronger communities through education,
-                            vocational training, and women-led development programs that create lasting change from the
-                            ground up.</p>
+                        <p data-i18n="home.initiatives_community_desc">Building stronger communities through education, vocational training, and women-led development programs that create lasting change from the ground up.</p>
+                        <a href="impact.html" class="btn btn-primary" data-i18n="home.initiatives_view_projects">View Projects</a>
                     </div>
                 </div>
 
@@ -1903,9 +1913,8 @@
                 <div class="initiatives-grid">
                     <div class="project-text">
                         <h3 data-i18n="home.aid_title">Aid distribution.</h3>
-                        <p data-i18n="home.aid_desc">Food, medicine, and essentials donated to families and those in
-                            need during crises. Our emergency response teams work around the clock to reach the most
-                            vulnerable communities.</p>
+                        <p data-i18n="home.aid_desc">Food, medicine, and essentials donated to families and those in need during crises. Our emergency response teams work around the clock to reach the most vulnerable communities.</p>
+                        <a href="impact.html" class="btn btn-primary" data-i18n="home.initiatives_view_projects">View Projects</a>
                     </div>
                     <div class="initiative-image">
                         <img src="images/lessons2.JPG" alt="Aid Distribution" loading="lazy">
@@ -1947,7 +1956,7 @@
                             can finally pay for my children's school fees. SEVO didn't just give me a skill — they gave
                             me a future.</p>
                         <div class="testimonial-author">
-                            <div class="testimonial-author-avatar" aria-hidden="true">م</div>
+                             <img src="images/MariamIbrahim.jpeg" alt="Mariam Abdalla" class="testimonial-author-avatar" aria-hidden="true">
                             <div class="testimonial-author-info">
                                 <strong data-i18n="home.testimonial_1_name">Mariam Abdalla</strong>
                                 <span data-i18n="home.testimonial_1_location">Nyala, South Darfur</span>
@@ -1974,6 +1983,7 @@
         <!-- Completed Projects (ZigZag) -->
         <section class="projects" id="projects">
             <div class="container">
+                <h2 class="section-headline" data-i18n="home.finished_projects_title">Finished Projects</h2>
 
                 <!-- Row 1: Text Left, Image Right -->
                 <div class="project-row">
@@ -2003,6 +2013,10 @@
                         <a href="#" class="btn btn-outline" data-i18n="home.projects_view"
                             onclick="openTrainingModal(); return false;">View Project</a>
                     </div>
+                </div>
+
+                <div class="projects-cta">
+                    <a href="about.html" class="btn btn-primary" data-i18n="home.finished_projects_view_history">View Full History</a>
                 </div>
 
             </div>
@@ -2266,8 +2280,105 @@
                         </button>
                     </div>
                 `;
+
+                // Re-initialize language switcher events for the newly added switcher
+                if (window.SEVO && window.SEVO.i18n && window.SEVO.i18n.reinitializeSwitchers) {
+                    window.SEVO.i18n.reinitializeSwitchers();
+                }
             }
         })();
+
+        // GSAP Animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Register ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero section animations
+            gsap.from('.hero-content > *', {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.hero-image', {
+                x: 50,
+                opacity: 0,
+                duration: 1.2,
+                delay: 0.3,
+                ease: 'power3.out'
+            });
+
+            // Objectives/Initiatives section animations
+            gsap.utils.toArray('.initiatives-grid').forEach((grid, i) => {
+                gsap.from(grid, {
+                    scrollTrigger: {
+                        trigger: grid,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    y: 60,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: i * 0.2,
+                    ease: 'power3.out'
+                });
+            });
+
+            // Stats section counter animation
+            gsap.from('.stat-item', {
+                scrollTrigger: {
+                    trigger: '.stats-section',
+                    start: 'top 70%'
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out'
+            });
+
+            // Testimonials cards animation
+            gsap.from('.testimonial-card', {
+                scrollTrigger: {
+                    trigger: '.testimonials',
+                    start: 'top 70%'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+
+            // Projects section animation
+            gsap.from('.project-row', {
+                scrollTrigger: {
+                    trigger: '.projects',
+                    start: 'top 70%'
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.3,
+                ease: 'power3.out'
+            });
+
+            // Section headlines animation
+            gsap.utils.toArray('.section-headline').forEach(headline => {
+                gsap.from(headline, {
+                    scrollTrigger: {
+                        trigger: headline,
+                        start: 'top 85%'
+                    },
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power3.out'
+                });
+            });
+        });
 
         // Animated Counter
         function animateCounter(el, target, suffix) {
@@ -2364,6 +2475,105 @@
                 closeTrainingModal();
             }
         });
+    // Circular Partners Slider
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait for GSAP to be loaded
+        if (typeof gsap !== 'undefined') {
+            const slider = document.querySelector('.circular-slider');
+            const items = document.querySelectorAll('.partner-item');
+            const prevBtn = document.querySelector('.slider-nav.prev');
+            const nextBtn = document.querySelector('.slider-nav.next');
+            
+            let angle = 0;
+            const radius = 200; // Radius of the circle
+            
+            // Position items in a circle
+            function positionItems() {
+                const itemCount = items.length;
+                
+                items.forEach((item, index) => {
+                    const percent = index / itemCount;
+                    const currentAngle = percent * (Math.PI * 2) + angle;
+                    
+                    const x = Math.cos(currentAngle) * radius;
+                    const y = Math.sin(currentAngle) * radius;
+                    
+                    item.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            }
+            
+            // Initialize positions
+            positionItems();
+            
+            // Rotate items clockwise (next)
+            function rotateClockwise() {
+                angle -= Math.PI / 4; // Rotate by 45 degrees
+                positionItems();
+            }
+            
+            // Rotate items counter-clockwise (prev)
+            function rotateCounterClockwise() {
+                angle += Math.PI / 4; // Rotate by 45 degrees
+                positionItems();
+            }
+            
+            // Animate rotation with GSAP
+            function animateRotation(isClockwise) {
+                const targetAngle = isClockwise ? angle - Math.PI / 4 : angle + Math.PI / 4;
+                
+                gsap.to({}, {
+                    duration: 1,
+                    ease: "power2.inOut",
+                    onUpdate: function() {
+                        const currentAngle = gsap.utils.interpolate(angle, targetAngle, this.progress);
+                        
+                        items.forEach((item, index) => {
+                            const itemCount = items.length;
+                            const percent = index / itemCount;
+                            const itemAngle = percent * (Math.PI * 2) + currentAngle;
+                            
+                            const x = Math.cos(itemAngle) * radius;
+                            const y = Math.sin(itemAngle) * radius;
+                            
+                            item.style.transform = `translate(${x}px, ${y}px)`;
+                        });
+                    },
+                    onComplete: function() {
+                        angle = targetAngle;
+                    }
+                });
+            }
+            
+            // Event listeners for navigation buttons
+            nextBtn.addEventListener('click', function() {
+                animateRotation(true);
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                animateRotation(false);
+            });
+            
+            // Auto-rotate the slider periodically
+            let autoRotateInterval = setInterval(() => {
+                animateRotation(true);
+            }, 3000);
+            
+            // Pause auto-rotation when hovering over the slider
+            const sliderContainer = document.querySelector('.circular-slider-container');
+            sliderContainer.addEventListener('mouseenter', function() {
+                clearInterval(autoRotateInterval);
+            });
+            
+            sliderContainer.addEventListener('mouseleave', function() {
+                autoRotateInterval = setInterval(() => {
+                    animateRotation(true);
+                }, 3000);
+            });
+        } else {
+            console.error('GSAP library not loaded');
+        }
+    });
+
     </script>
 </body>
 

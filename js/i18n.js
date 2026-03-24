@@ -241,7 +241,11 @@
             t: getTranslation,
             formatNumber,
             formatDate,
-            isRTL: () => CONFIG.rtlLangs.includes(currentLang)
+            isRTL: () => CONFIG.rtlLangs.includes(currentLang),
+            reinitializeSwitchers: () => {
+                initLanguageSwitcher();
+                updateLanguageSwitcher();
+            }
         };
 
         console.log(`SEVO i18n initialized: ${currentLang}`);
