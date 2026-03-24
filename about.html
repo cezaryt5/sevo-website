@@ -34,13 +34,13 @@
             --bg-color: #ffffff;
             --bg-hero: #ffe8cc;
             --bg-highlight-1: #fff5f5;
-            --bg-highlight-2: #fff5f5;
+            --bg-highlight-2: #fffae8;
             --text-main: #7F4145;
             --text-muted: #8B5A5E;
             --text-light: #A67073;
             --placeholder-bg: #fce8dc;
             --placeholder-shape: #f5d5c8;
-            --spacing-section: 100px;
+            --spacing-section: 120px;
             --container-width: 1200px;
             --radius-btn: 9999px;
             --radius-card: 20px;
@@ -198,9 +198,30 @@
             display: block;
         }
 
-        /* Logo in static/hero-blended header */
-        .static-header .logo-img {
+        /* Logo in static/hero-blended header — smaller so it doesn't dominate */
+        .static-header .logo-img,
+        .hero-header .logo-img {
             height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .navbar .logo-img {
+            height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        /* Logo in static/hero-blended header — smaller so it doesn't dominate */
+        .static-header .logo-img,
+        .hero-header .logo-img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .navbar .logo-img {
+            height: 55px;
             width: auto;
             display: block;
         }
@@ -798,6 +819,7 @@
             position: relative;
         }
 
+
         .footer-content {
             display: grid;
             grid-template-columns: 1fr 2fr 1fr;
@@ -942,6 +964,9 @@
             top: 18px;
             right: 24px;
             z-index: 1100;
+            display: block !important;
+            background: rgba(255, 232, 204, 0.8);
+            border-radius: 50%;
         }
 
         .menu-toggle span {
@@ -1026,6 +1051,39 @@
         .mobile-menu .lang-code {
             display: inline !important;
             text-transform: lowercase;
+        }
+
+        /* Mobile Menu Close Button (X) */
+        .mobile-menu-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            background: rgba(127, 65, 69, 0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+        }
+
+        .mobile-menu-close span {
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-main);
+            border-radius: 2px;
+        }
+
+        .mobile-menu-close span:nth-child(1) {
+            transform: rotate(45deg);
+        }
+
+        .mobile-menu-close span:nth-child(2) {
+            transform: rotate(-45deg);
         }
 
         /* Responsive */
@@ -1244,6 +1302,10 @@
 
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" aria-label="Close menu" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+        </button>
         <a href="index.html" data-i18n="nav.home">Home</a>
         <a href="about.html" class="active" data-i18n="nav.about">About</a>
         <a href="transparency.html" data-i18n="nav.transparency">Transparency</a>
@@ -1531,9 +1593,9 @@
                 </div>
                 <div class="footer-social">
                     <div class="social-icons">
-                        <a href="#" class="social-icon" aria-label="Facebook">f</a>
-                        <a href="#" class="social-icon" aria-label="Twitter">t</a>
-                        <a href="#" class="social-icon" aria-label="Instagram">i</a>
+                        <a href="#" class="social-icon" aria-label="Facebook"><img src="images/facebook-svgrepo-com.svg" alt="Facebook" width="24" height="24"></a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn"><img src="images/linkedin-linked-in-svgrepo-com.svg" alt="LinkedIn" width="24" height="24"></a>
+                        <a href="#" class="social-icon" aria-label="Email"><img src="images/email-svgrepo-com.svg" alt="Email" width="24" height="24"></a>
                     </div>
                     <div class="footer-tagline">
                         <span data-i18n="footer.tagline_community">Community.</span>
@@ -1633,7 +1695,7 @@
             const emailInput = document.getElementById('newsletterEmail');
             const successMsg = document.getElementById('newsletterSuccess');
             const form = document.getElementById('newsletterForm');
-            
+
             if (emailInput && emailInput.value) {
                 form.style.display = 'none';
                 if (successMsg) {
@@ -1641,6 +1703,16 @@
                 }
             }
         }
+
+        // Close mobile menu with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('mobileMenu');
+                if (menu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
 
         // GSAP Animations
         document.addEventListener('DOMContentLoaded', function() {

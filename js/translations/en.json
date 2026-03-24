@@ -115,7 +115,7 @@
     "vision_title": "Our Vision",
     "vision_desc": "A Sudan where every woman has the opportunity to thrive, every community has access to clean water and healthcare, and sustainable development creates prosperity for all.",
     "values_title": "Our Values",
-    "values_desc": "Integrity, transparency, community participation, gender equality, and sustainable development guide everything we do at SEVO.",
+    "values_desc": "Integrity, transparency, community participation, and sustainable development guide everything we do at SEVO.",
     "history_title": "Our Journey",
     "history_2009_title": "2009 - The Beginning",
     "history_2009_desc": "SEVO was founded by a group of passionate volunteers dedicated to helping women in rural Sudan.",
@@ -353,6 +353,17 @@
     "contact_title": "Connect",
     "copyright": "© 2025 SEVO. All rights reserved.",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Use"
+    "terms": "Terms of Use",
+    "logo_text": "SEVO"
+  },
+  "aria": {
+    "menu": "Menu",
+    "close_menu": "Close menu",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "language": "Select language",
+    "english": "English",
+    "arabic": "العربية"
   }
 }
