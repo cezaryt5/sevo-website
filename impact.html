@@ -42,6 +42,7 @@
             --radius-card: 20px;
             --radius-small: 12px;
             --navbar-height: 80px;
+            --sidebar-width: 280px;
         }
 
         * {
@@ -50,88 +51,17 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: 'Oswald', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        /* Utilities */
-        .container {
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--text-main);
-            color: var(--bg-color);
-            padding: 16px 36px;
-            border-radius: var(--radius-btn);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-            border: none;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .btn:hover {
-            opacity: 0.85;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            color: var(--text-main);
-            border: 2px solid var(--text-main);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--text-main);
-            color: var(--bg-color);
-        }
-
-        h1,
-        h2,
-        h3 {
-            line-height: 1.2;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-        }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: 700;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
-
-        h3 {
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        h4 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+            overflow: hidden;
         }
 
         a {
@@ -144,16 +74,21 @@
             opacity: 0.7;
         }
 
-        /* Floating Navbar */
-        .navbar-wrapper {
-            position: fixed;
-            top: 0;
-            inset-inline: 0;
-            z-index: 1000;
-            pointer-events: none;
+        p {
+            color: var(--text-muted);
+            font-size: 1rem;
         }
 
-        .navbar {
+        h1, h2, h3 {
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+        }
+
+        /* ── Sticky Navbar ── */
+        .impact-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -162,77 +97,58 @@
             background: rgba(255, 232, 204, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 0 0 24px 24px;
-            box-shadow: 0 4px 30px rgba(127, 65, 69, 0.08);
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: auto;
-            max-width: 1400px;
-            margin: 0 auto;
-            transition: transform 0.35s ease, opacity 0.35s ease;
+            border-bottom: 1px solid rgba(127, 65, 69, 0.1);
         }
 
-        .navbar.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .navbar.hidden {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-
-        .navbar .logo {
+        .impact-navbar .logo {
             font-weight: 700;
             font-size: 1.3rem;
             letter-spacing: 0.05em;
             color: var(--text-main);
         }
 
-        .navbar .logo-img {
-            height: 55px;
-            width: auto;
-            display: block;
-        }
-
-        /* Logo in static/hero-blended header — smaller so it doesn't dominate */
-        .static-header .logo-img,
-        .hero-header .logo-img {
+        .impact-navbar .logo-img {
             height: 48px;
             width: auto;
             display: block;
         }
 
-        .navbar .nav-links {
+        .impact-navbar .nav-links {
             display: flex;
-            gap: 36px;
+            gap: 32px;
             align-items: center;
         }
 
-        .navbar .nav-links a {
+        .impact-navbar .nav-links a {
             text-decoration: none;
             color: var(--text-main);
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 0.05em;
             text-transform: uppercase;
-            transition: color 0.2s ease;
         }
 
-        .navbar .nav-links a.active {
+        .impact-navbar .nav-links a.active {
             text-decoration: underline;
+            text-underline-offset: 4px;
         }
 
-        .navbar .nav-links a:not(.btn):hover {
+        .impact-navbar .nav-links a:not(.btn):hover {
             color: var(--text-light);
         }
 
-        .navbar .nav-links .btn {
+        .impact-navbar .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .impact-navbar .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 10px 24px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             background-color: var(--text-main);
             color: var(--bg-color);
             border-radius: var(--radius-btn);
@@ -243,222 +159,360 @@
             white-space: nowrap;
             letter-spacing: 0.05em;
             text-transform: uppercase;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
-        .navbar .nav-links .btn:hover {
+        .impact-navbar .btn:hover {
             opacity: 0.85;
             transform: translateY(-2px);
         }
 
-        /* Static Header (Hero State) */
-        .static-header {
-            position: absolute;
-            top: 0;
-            inset-inline: 0;
-            padding: 24px 0;
-            z-index: 100;
-            background: transparent;
+        /* ── Three-Column Layout ── */
+        .impact-layout {
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr var(--sidebar-width);
+            height: calc(100vh - var(--navbar-height));
+            overflow: hidden;
         }
 
-        .static-header nav {
+        /* ── Left Sidebar: Project Metadata ── */
+        .sidebar-left {
+            position: sticky;
+            top: var(--navbar-height);
+            height: calc(100vh - var(--navbar-height));
+            overflow-y: auto;
+            padding: 40px 28px;
+            border-right: 1px solid rgba(127, 65, 69, 0.08);
+            background: var(--bg-color);
+        }
+
+        .meta-heading {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .meta-sub {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            margin-bottom: 28px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .meta-item {
             display: flex;
-            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-left: 0;
+        }
+
+        .meta-item.active {
+            border-left: 3px solid var(--text-main);
+            padding-left: 12px;
+        }
+
+        .meta-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: var(--text-light);
+        }
+
+        .meta-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .meta-value {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-top: 2px;
+        }
+
+        .meta-divider {
+            border: none;
+            border-top: 1px solid rgba(127, 65, 69, 0.1);
+            margin: 20px 0;
+        }
+
+        /* Partners in sidebar */
+        .meta-partners {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
             align-items: center;
+        }
+
+        .partner-logo {
+            height: 20px;
+            width: auto;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+            filter: grayscale(30%);
+        }
+
+        .partner-logo:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .partner-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--bg-highlight-1);
+            border: 1px solid rgba(127, 65, 69, 0.1);
+            border-radius: 6px;
+            font-size: 0.68rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+        }
+
+        /* ── Center: Scrollable Content ── */
+        .content-center {
+            overflow-y: auto;
+            padding: 50px 60px;
+            background: var(--bg-color);
+            scroll-behavior: smooth;
+        }
+
+        .featured-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .content-center h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.15;
+            margin-bottom: 24px;
+            text-transform: none;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .content-divider {
+            width: 50px;
+            height: 3px;
+            background: var(--text-main);
+            margin-bottom: 40px;
+            border: none;
+        }
+
+        .content-image {
+            width: 100%;
+            border-radius: var(--radius-small);
+            margin-bottom: 40px;
+            object-fit: cover;
+            max-height: 450px;
+        }
+
+        .content-section {
+            margin-bottom: 48px;
+        }
+
+        .content-section h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-transform: none;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .content-section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .content-section ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 16px;
+        }
+
+        .content-section ul li {
+            padding: 8px 0;
+            padding-left: 16px;
+            position: relative;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .content-section ul li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--text-light);
+        }
+
+        /* Project separator */
+        .project-separator {
+            border: none;
+            border-top: 1px solid rgba(127, 65, 69, 0.12);
+            margin: 60px 0;
+        }
+
+        /* Stats in content */
+        .content-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+            padding: 32px;
+            background: var(--bg-hero);
+            border-radius: var(--radius-small);
+        }
+
+        .content-stat {
+            text-align: center;
+        }
+
+        .content-stat h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            text-transform: none;
+        }
+
+        .content-stat p {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+        }
+
+        /* ── Right Sidebar: Project Index ── */
+        .sidebar-right {
+            position: sticky;
+            top: var(--navbar-height);
+            height: calc(100vh - var(--navbar-height));
+            overflow-y: auto;
+            padding: 40px 24px;
+            border-left: 1px solid rgba(127, 65, 69, 0.08);
+            background: var(--bg-color);
+        }
+
+        .index-heading {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .index-sub {
+            font-size: 0.68rem;
+            color: var(--text-light);
+            margin-bottom: 28px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .project-link:hover,
+        .project-link.active {
+            color: var(--text-main);
+            opacity: 1;
+        }
+
+        .project-link.active {
+            font-weight: 700;
+        }
+
+        .project-link-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            opacity: 0.6;
+        }
+
+        .project-link.active .project-link-icon {
+            opacity: 1;
+        }
+
+        .sidebar-right-bottom {
+            position: absolute;
+            bottom: 40px;
+            left: 24px;
+            right: 24px;
+        }
+
+        .index-divider {
+            border: none;
+            border-top: 1px solid rgba(127, 65, 69, 0.1);
+            margin: 16px 0;
+        }
+
+        .sidebar-action {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .sidebar-action:hover {
+            color: var(--text-main);
+        }
+
+        .sidebar-action-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+        }
+
+        .container {
             max-width: var(--container-width);
             margin: 0 auto;
             padding: 0 40px;
         }
 
-        .static-header .logo {
-            font-weight: 700;
-            font-size: 1.4rem;
-            letter-spacing: 0.05em;
-            color: var(--text-main);
-        }
-
-        .static-header .nav-links {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .static-header .nav-links a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 500;
-            font-size: 0.95rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            transition: color 0.2s ease;
-        }
-
-        .static-header .nav-links a.active {
-            text-decoration: underline;
-        }
-
-        .static-header .nav-links a:not(.btn):hover {
-            color: var(--text-light);
-        }
-
-        .static-header .nav-links .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 28px;
-            font-size: 0.95rem;
-            background-color: var(--text-main);
-            color: var(--bg-color);
-            border-radius: var(--radius-btn);
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            white-space: nowrap;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .static-header .nav-links .btn:hover {
-            opacity: 0.85;
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            padding: 180px 0 100px;
-            text-align: center;
-            background-color: var(--bg-hero);
-        }
-
-        .hero h1 {
-            margin-bottom: 20px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-        }
-
-        /* Impact Overview */
-        .impact-overview {
-            padding: var(--spacing-section) 0;
-            background-color: var(--bg-highlight-1);
-            text-align: center;
-        }
-
-        .impact-overview h2 {
-            margin-bottom: 24px;
-        }
-
-        .impact-overview p {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            line-height: 1.8;
-        }
-
-        /* Impact Areas */
-        .impact-areas {
-            padding: var(--spacing-section) 0;
-            background-color: var(--bg-color);
-        }
-
-        .impact-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 60px;
-        }
-
-        .impact-card {
-            padding: 48px;
-            background: var(--bg-highlight-2);
-            border-radius: var(--radius-card);
-        }
-
-        .impact-card h3 {
-            margin-bottom: 16px;
-        }
-
-        .impact-card p {
-            line-height: 1.7;
-        }
-
-        /* Stats Banner */
-        .stats-banner {
-            padding: 80px 0;
-            background-color: var(--bg-hero);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            text-align: center;
-        }
-
-        .stat-box h4 {
-            font-size: 3.5rem;
-            margin-bottom: 8px;
-        }
-
-        .stat-box p {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        /* Success Stories */
-        .stories-section {
-            padding: var(--spacing-section) 0;
-            background-color: var(--bg-highlight-1);
-        }
-
-        .stories-section h2 {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .stories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-
-        .story-card {
-            background: var(--bg-color);
-            padding: 40px;
-            border-radius: var(--radius-card);
-        }
-
-        .story-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-        }
-
-        .story-card p {
-            font-style: italic;
-            line-height: 1.7;
-        }
-
-        /* Report Section */
-        .report-section {
-            padding: var(--spacing-section) 0;
-            background-color: var(--bg-hero);
-            text-align: center;
-        }
-
-        .report-section h2 {
-            margin-bottom: 20px;
-        }
-
-        .report-section p {
-            max-width: 600px;
-            margin: 0 auto 32px;
-        }
-
         /* Footer */
         footer {
+            display: none;
             background-color: var(--bg-hero);
             padding: 80px 0 40px;
             position: relative;
@@ -733,25 +787,73 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .container {
-                padding: 0 32px;
-            }
-
-            h1 {
-                font-size: 3.25rem;
-            }
-
-            h2 {
-                font-size: 2.25rem;
-            }
-
-            .impact-grid,
-            .stories-grid {
+            .impact-layout {
                 grid-template-columns: 1fr;
+                height: auto;
+                overflow: visible;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            body {
+                overflow: auto;
+            }
+
+            footer {
+                display: block;
+            }
+
+            .sidebar-left,
+            .sidebar-right {
+                position: relative;
+                height: auto;
+                border: none;
+                padding: 24px 32px;
+            }
+
+            .sidebar-left {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0 24px;
+                border-bottom: 1px solid rgba(127, 65, 69, 0.1);
+            }
+
+            .sidebar-left .meta-heading,
+            .sidebar-left .meta-sub {
+                grid-column: 1 / -1;
+            }
+
+            .sidebar-right {
+                order: -1;
+                border-bottom: 1px solid rgba(127, 65, 69, 0.1);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0 24px;
+                align-items: center;
+            }
+
+            .sidebar-right .index-heading,
+            .sidebar-right .index-sub {
+                width: 100%;
+            }
+
+            .sidebar-right-bottom {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
+                width: 100%;
+                margin-top: 16px;
+            }
+
+            .content-center {
+                padding: 40px 32px;
+            }
+
+            .content-center h1 {
+                font-size: 2.4rem;
+            }
+
+            .content-stats {
+                grid-template-columns: repeat(3, 1fr);
             }
 
             .footer-content {
@@ -761,10 +863,6 @@
 
             .footer-logo-section {
                 justify-content: center;
-            }
-
-            .footer-nav {
-                grid-template-columns: repeat(3, 1fr);
             }
 
             .footer-social {
@@ -789,56 +887,32 @@
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 0 24px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 1.75rem;
-            }
-
-            h3 {
-                font-size: 1.5rem;
-            }
-
-            /* Show hamburger, hide nav links */
             .menu-toggle {
                 display: block;
             }
 
-            .static-header .nav-links {
+            .impact-navbar .nav-links {
                 display: none;
             }
 
-            .navbar {
+            .impact-navbar {
                 padding: 0 24px;
-                border-radius: 0;
             }
 
-            .navbar .nav-links {
-                display: none;
+            .sidebar-left {
+                grid-template-columns: 1fr;
             }
 
-            .hero {
-                padding: 140px 0 60px;
-            }
-
-            .impact-card,
-            .story-card {
+            .content-center {
                 padding: 32px 24px;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
+            .content-center h1 {
+                font-size: 1.8rem;
             }
 
-            .stat-box h4 {
-                font-size: 2.5rem;
+            .content-stats {
+                grid-template-columns: 1fr;
             }
 
             .footer-nav {
@@ -851,49 +925,25 @@
 
 <body>
 
-    <!-- Floating Navbar -->
-    <div class="navbar-wrapper">
-        <nav class="navbar">
-            <a href="index.html" class="logo"><img src="images/logo.png" alt="SEVO" class="logo-img"></a>
-            <div class="nav-links">
-                <a href="index.html" data-i18n="nav.home">Home</a>
-                <a href="about.html" data-i18n="nav.about">About</a>
-                <a href="transparency.html" data-i18n="nav.transparency">Transparency</a>
-                <a href="impact.html" class="active" data-i18n="nav.impact">Impact</a>
-                <a href="contact.html" data-i18n="nav.contact">Contact</a>
-            </div>
-            <div class="nav-actions">
-                <a href="contact.html#donate" class="btn" data-i18n="nav.donate">Donate</a>
-                <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileMenu()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
-    </div>
-
-    <!-- Static Header (Hero State) -->
-    <header class="static-header">
-        <nav>
-            <a href="index.html" class="logo"><img src="images/logo.png" alt="SEVO" class="logo-img"></a>
-            <div class="nav-links">
-                <a href="index.html" data-i18n="nav.home">Home</a>
-                <a href="about.html" data-i18n="nav.about">About</a>
-                <a href="transparency.html" data-i18n="nav.transparency">Transparency</a>
-                <a href="impact.html" class="active" data-i18n="nav.impact">Impact</a>
-                <a href="contact.html" data-i18n="nav.contact">Contact</a>
-            </div>
-            <div class="nav-actions">
-                <a href="contact.html#donate" class="btn" data-i18n="nav.donate">Donate</a>
-                <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileMenu()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
-    </header>
+    <!-- Sticky Navbar -->
+    <nav class="impact-navbar">
+        <a href="index.html" class="logo"><img src="images/logo.png" alt="SEVO" class="logo-img"></a>
+        <div class="nav-links">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <a href="transparency.html" data-i18n="nav.transparency">Transparency</a>
+            <a href="impact.html" class="active" data-i18n="nav.impact">Impact</a>
+            <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="contact.html#donate" class="btn" data-i18n="nav.donate">Donate</a>
+            <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
@@ -910,108 +960,279 @@
         <div class="mobile-lang-switcher"></div>
     </div>
 
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <h1 data-i18n="impact.hero_title">Our Impact</h1>
-                <p class="hero-subtitle" data-i18n="impact.hero_subtitle">Measurable results. Real communities. Lasting
-                    change.</p>
-            </div>
-        </section>
+    <!-- Three-Column Layout -->
+    <div class="impact-layout">
 
-        <!-- Impact Overview -->
-        <section class="impact-overview">
-            <div class="container">
-                <h2 data-i18n="impact.overview_title">Impact Overview</h2>
-                <p data-i18n="impact.overview_desc">Since 2009, SEVO has touched thousands of lives across Sudan through
-                    our comprehensive programs in water access, women's empowerment, health, and education.</p>
-            </div>
-        </section>
+        <!-- LEFT SIDEBAR: Project Metadata -->
+        <aside class="sidebar-left">
+            <div class="meta-heading" data-i18n="impact.sidebar_metadata">Project Metadata</div>
+            <div class="meta-sub" data-i18n="impact.sidebar_verified">Verified Stats</div>
 
-        <!-- Impact Areas -->
-        <section class="impact-areas">
-            <div class="container">
-                <div class="impact-grid">
-                    <div class="impact-card">
-                        <h3 data-i18n="impact.water_title">Clean Water Access</h3>
-                        <p data-i18n="impact.water_desc">Our well projects have provided clean water to over 15,000
-                            people in rural communities, reducing waterborne diseases and saving women hours of daily
-                            water collection.</p>
-                    </div>
-                    <div class="impact-card">
-                        <h3 data-i18n="impact.women_title">Women's Empowerment</h3>
-                        <p data-i18n="impact.women_desc">Over 1,200 women have completed our vocational training
-                            programs, with 70% starting their own businesses or securing employment within a year.</p>
-                    </div>
-                    <div class="impact-card">
-                        <h3 data-i18n="impact.health_title">Health Outreach</h3>
-                        <p data-i18n="impact.health_desc">Our mobile clinics have provided over 50,000 medical
-                            consultations and vaccinations in remote communities without access to healthcare
-                            facilities.</p>
-                    </div>
-                    <div class="impact-card">
-                        <h3 data-i18n="impact.education_title">Education Support</h3>
-                        <p data-i18n="impact.education_desc">We've supported 500+ girls to continue their education
-                            through scholarships, school supplies, and community learning centers.</p>
+            <div class="meta-item active" id="meta-overview">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <div>
+                    <div class="meta-label" data-i18n="impact.overview_title">Overview</div>
+                    <div class="meta-value" id="meta-overview-text" data-i18n="impact.overview_desc">Empowering Sudanese women through sustainable development since 2009.</div>
+                </div>
+            </div>
+
+            <div class="meta-item" id="meta-financials">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <div>
+                    <div class="meta-label" data-i18n="impact.sidebar_financials">Financials</div>
+                    <div class="meta-value" id="meta-financials-text" data-i18n="impact.sidebar_invested">$50,000 Invested</div>
+                </div>
+            </div>
+
+            <div class="meta-item" id="meta-impact">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                <div>
+                    <div class="meta-label" data-i18n="nav.impact">Impact</div>
+                    <div class="meta-value" id="meta-impact-text" data-i18n="impact.sidebar_beneficiaries">15,000+ Beneficiaries</div>
+                </div>
+            </div>
+
+            <hr class="meta-divider">
+
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+                <div>
+                    <div class="meta-label" data-i18n="impact.sidebar_partners">Partners</div>
+                    <div class="meta-partners" id="meta-partners-logos">
+                        <img src="images/unhabitat.png" alt="UN-Habitat" class="partner-logo" title="UN-Habitat">
+                        <img src="images/UNHCR.svg.png" alt="UNHCR" class="partner-logo" title="UNHCR">
+                        <img src="images/UNFPA_logo.svg.png" alt="UNFPA" class="partner-logo" title="UNFPA">
                     </div>
                 </div>
             </div>
-        </section>
+        </aside>
 
-        <!-- Stats Banner -->
-        <section class="stats-banner">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <h4>15K+</h4>
-                        <p>People with Water Access</p>
+        <!-- CENTER: Scrollable Content -->
+        <main class="content-center" id="main-content">
+
+            <!-- Project: Market Kiosks -->
+            <article id="project-market">
+                <div class="featured-label" data-i18n="impact.sidebar_featured">Featured Initiative</div>
+                <h1 data-i18n="impact.projects.market.title">From Pavements to Permanence.</h1>
+                <hr class="content-divider">
+                <img src="images/umbrellas.jpg" alt="Market Kiosks in Nyala" class="content-image" loading="lazy">
+
+                <div class="content-section">
+                    <h2 data-i18n="impact.projects.market.problem_title">The Problem</h2>
+                    <p data-i18n="impact.projects.market.problem_p1">For the women of Nyala's local markets, business used to be a gamble, not an investment. Trading "on the ground" meant operating in a legal gray area.</p>
+                    <ul>
+                        <li data-i18n="impact.projects.market.problem_li1" data-i18n-html>Asset Seizure — Inventory frequently confiscated during municipal sweeps.</li>
+                        <li data-i18n="impact.projects.market.problem_li2" data-i18n-html>Legal Fines — Operating in the streets led to recurring fines that swallowed daily profits.</li>
+                        <li data-i18n="impact.projects.market.problem_li3" data-i18n-html>Exposure — No shelter meant being at the mercy of the weather.</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2 data-i18n="impact.projects.market.solution_title">The Solution</h2>
+                    <p data-i18n="impact.projects.market.solution_p1">Through a strategic partnership with local banks and the municipality, we designed and manufactured fixed metal kiosks — official workplaces that provide dignity and weather protection.</p>
+                    <ul>
+                        <li data-i18n="impact.projects.market.solution_li1" data-i18n-html>Physical Infrastructure — Fixed metal kiosks as designated official workplaces.</li>
+                        <li data-i18n="impact.projects.market.solution_li2" data-i18n-html>Legal Recognition — Women shifted from "illegal vendors" to "authorized traders."</li>
+                        <li data-i18n="impact.projects.market.solution_li3" data-i18n-html>Financial Fuel — Integration into microfinance programs for business expansion.</li>
+                    </ul>
+                </div>
+
+                <div class="content-stats">
+                    <div class="content-stat">
+                        <h3>150+</h3>
+                        <p data-i18n="impact.projects.market.stat_traders">Women Traders</p>
                     </div>
-                    <div class="stat-box">
-                        <h4>1,200+</h4>
-                        <p>Women Trained</p>
+                    <div class="content-stat">
+                        <h3>2020</h3>
+                        <p data-i18n="impact.projects.market.stat_year">Year Started</p>
                     </div>
-                    <div class="stat-box">
-                        <h4>50K+</h4>
-                        <p>Medical Consultations</p>
-                    </div>
-                    <div class="stat-box">
-                        <h4>50+</h4>
-                        <p>Communities Served</p>
+                    <div class="content-stat">
+                        <h3 data-i18n="impact.projects.market.stat_location_value">Nyala</h3>
+                        <p data-i18n="impact.projects.market.stat_location">South Darfur</p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Success Stories -->
-        <section class="stories-section">
-            <div class="container">
-                <h2 data-i18n="impact.stories_title">Success Stories</h2>
-                <div class="stories-grid">
-                    <div class="story-card">
-                        <h3 data-i18n="impact.story_1_name">Mariam's Story</h3>
-                        <p data-i18n="impact.story_1_text">"After completing our tailoring program, Mariam opened her
-                            own shop and now employs three other women from her community."</p>
+                <img src="images/umbrellas1.jpg" alt="Market Kiosks close-up" class="content-image" loading="lazy">
+
+                <div class="content-section">
+                    <h2 data-i18n="impact.projects.market.impact_title">The Impact</h2>
+                    <p data-i18n="impact.projects.market.impact_p1">Today, the green kiosks represent more than just a place to sell — they represent a permanent stake in the local economy. By solving the root cause, we've built a framework where women can finally plan for the future.</p>
+                </div>
+            </article>
+
+            <hr class="project-separator">
+
+            <!-- Project: Training -->
+            <article id="project-training">
+                <div class="featured-label" data-i18n="impact.sidebar_vocational">Vocational Training</div>
+                <h1 data-i18n="impact.projects.training.title">The 2012 Genesis: Stitching a Social Fabric.</h1>
+                <hr class="content-divider">
+                <img src="images/training.jpg" alt="Vocational Training Program" class="content-image" loading="lazy">
+
+                <div class="content-section">
+                    <h2 data-i18n="impact.projects.training.blueprint_title">The 30-Woman Blueprint</h2>
+                    <p data-i18n="impact.projects.training.blueprint_p1">In 2012, we launched a pilot program that proved economic empowerment is the most effective tool for peace-building. We curated a micro-society:</p>
+                    <ul>
+                        <li data-i18n="impact.projects.training.blueprint_li1">10 women from Dorkti (El Geneina, West Darfur)</li>
+                        <li data-i18n="impact.projects.training.blueprint_li2">10 women from Al Salam Refugee Camp</li>
+                        <li data-i18n="impact.projects.training.blueprint_li3">10 women from Nyala</li>
+                    </ul>
+                    <p data-i18n="impact.projects.training.blueprint_p2">By placing women from different backgrounds in the same room, we gave them a rare chance to share experiences and realize their struggles were identical.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2 data-i18n="impact.projects.training.scale_title">From Skill to Scale</h2>
+                    <p data-i18n="impact.projects.training.scale_p1">Under the guidance of UN-Habitat and UNHCR, these women mastered tailoring, specializing in traditional Sudanese thobes. To ensure sustainability:</p>
+                    <ul>
+                        <li data-i18n="impact.projects.training.scale_li1" data-i18n-html>Asset Ownership — Every woman was equipped with her own professional sewing machine.</li>
+                        <li data-i18n="impact.projects.training.scale_li2" data-i18n-html>Business Autonomy — They left as business owners with capital to start their own workshops.</li>
+                    </ul>
+                </div>
+
+                <div class="content-stats">
+                    <div class="content-stat">
+                        <h3>30</h3>
+                        <p data-i18n="impact.projects.training.stat_women">Women Trained</p>
                     </div>
-                    <div class="story-card">
-                        <h3 data-i18n="impact.story_2_name">Al-Rih Village</h3>
-                        <p data-i18n="impact.story_2_text">"Before our well project, women walked 3 hours daily for
-                            water. Now, the community has clean water at their doorstep."</p>
+                    <div class="content-stat">
+                        <h3>2012</h3>
+                        <p data-i18n="impact.projects.training.stat_year">Year</p>
+                    </div>
+                    <div class="content-stat">
+                        <h3>3</h3>
+                        <p data-i18n="impact.projects.training.stat_regions">Regions United</p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Annual Report CTA -->
-        <section class="report-section">
-            <div class="container">
-                <h2 data-i18n="impact.report_title">Annual Impact Report</h2>
-                <p data-i18n="impact.report_desc">Download our latest annual report for detailed statistics, financial
-                    transparency, and stories from the field.</p>
-                <a href="#" class="btn btn-outline" data-i18n="impact.report_cta">Download Report</a>
+                <img src="images/lessons5.jpg" alt="Training session" class="content-image" loading="lazy">
+            </article>
+
+            <hr class="project-separator">
+
+            <!-- Project: Wells -->
+            <article id="project-wells">
+                <div class="featured-label" data-i18n="impact.projects_section.filter_water">Water & Sanitation</div>
+                <h1 data-i18n="impact.projects.wells.title">Clean Water Wells Initiative.</h1>
+                <hr class="content-divider">
+
+                <div class="content-section">
+                    <h2 data-i18n="impact.projects.wells.problem_title">The Water Crisis</h2>
+                    <p data-i18n="impact.projects.wells.problem_p1">In rural Sudan, access to clean water is a daily struggle. Women and children walk hours each day to fetch water, often from contaminated sources.</p>
+                    <ul>
+                        <li data-i18n="impact.projects.wells.problem_li1" data-i18n-html>Waterborne Diseases — Cholera, typhoid, and dysentery are common.</li>
+                        <li data-i18n="impact.projects.wells.problem_li2" data-i18n-html>Lost Education — Children, especially girls, miss school to fetch water.</li>
+                        <li data-i18n="impact.projects.wells.problem_li3" data-i18n-html>Economic Burden — Hours spent fetching water could be used for productive activities.</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2 data-i18n="impact.projects.wells.solution_title">Our Solution</h2>
+                    <p data-i18n="impact.projects.wells.solution_p1">We've built 27 clean water wells across rural communities, providing safe, accessible water to over 15,000 people.</p>
+                    <ul>
+                        <li data-i18n="impact.projects.wells.solution_li1" data-i18n-html>Community Training — Local committees trained to maintain and manage the wells.</li>
+                        <li data-i18n="impact.projects.wells.solution_li2" data-i18n-html>Hygiene Education — Communities receive training on proper water usage and sanitation.</li>
+                        <li data-i18n="impact.projects.wells.solution_li3" data-i18n-html>Sustainable Design — Wells built to last, with durable pumps and protective infrastructure.</li>
+                    </ul>
+                </div>
+
+                <div class="content-stats">
+                    <div class="content-stat">
+                        <h3>27</h3>
+                        <p data-i18n="impact.projects.wells.stat_wells">Wells Built</p>
+                    </div>
+                    <div class="content-stat">
+                        <h3>15K+</h3>
+                        <p data-i18n="impact.projects.wells.stat_people">People Served</p>
+                    </div>
+                    <div class="content-stat">
+                        <h3>80%</h3>
+                        <p data-i18n="impact.projects.wells.stat_disease">Disease Reduction</p>
+                    </div>
+                </div>
+            </article>
+
+            <hr class="project-separator">
+
+            <!-- Project: Health -->
+            <article id="project-health">
+                <div class="featured-label" data-i18n="impact.projects_section.filter_health">Health & Education</div>
+                <h1 data-i18n="impact.projects.health.title">Mobile Health Clinics.</h1>
+                <hr class="content-divider">
+
+                <div class="content-section">
+                    <h2 data-i18n="impact.projects.health.problem_title">Healthcare Desert</h2>
+                    <p data-i18n="impact.projects.health.problem_p1">Remote communities in Sudan lack access to basic healthcare facilities. Many villages are hours away from the nearest clinic.</p>
+                    <ul>
+                        <li data-i18n="impact.projects.health.problem_li1" data-i18n-html>Preventable Diseases — Vaccination rates are low, and preventable diseases spread easily.</li>
+                        <li data-i18n="impact.projects.health.problem_li2" data-i18n-html>Maternal Mortality — Women lack access to prenatal and postnatal care.</li>
+                        <li data-i18n="impact.projects.health.problem_li3" data-i18n-html>Untreated Conditions — Common illnesses go untreated, leading to complications.</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2 data-i18n="impact.projects.health.solution_title">Mobile Health Solution</h2>
+                    <p data-i18n="impact.projects.health.solution_p1">Our mobile health clinics bring medical care directly to remote communities, providing free consultations, vaccinations, and health education.</p>
+                    <ul>
+                        <li data-i18n="impact.projects.health.solution_li1" data-i18n-html>Primary Care — Treatment of common illnesses and injuries.</li>
+                        <li data-i18n="impact.projects.health.solution_li2" data-i18n-html>Vaccinations — Immunization programs for children and adults.</li>
+                        <li data-i18n="impact.projects.health.solution_li3" data-i18n-html>Maternal Health — Prenatal care, safe delivery support, and postnatal checkups.</li>
+                    </ul>
+                </div>
+
+                <div class="content-stats">
+                    <div class="content-stat">
+                        <h3>50K+</h3>
+                        <p data-i18n="impact.projects.health.stat_consultations">Consultations</p>
+                    </div>
+                    <div class="content-stat">
+                        <h3>2018</h3>
+                        <p data-i18n="impact.projects.health.stat_year">Year Started</p>
+                    </div>
+                    <div class="content-stat">
+                        <h3>50+</h3>
+                        <p data-i18n="impact.projects.health.stat_communities">Communities</p>
+                    </div>
+                </div>
+            </article>
+
+        </main>
+
+        <!-- RIGHT SIDEBAR: Project Index -->
+        <aside class="sidebar-right">
+            <div class="index-heading" data-i18n="impact.projects_section.title">Project Index</div>
+            <div class="index-sub" data-i18n="impact.projects_section.subtitle">Completed Works 2012–2024</div>
+
+            <button class="project-link active" onclick="scrollToProject('project-market')">
+                <svg class="project-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                <span data-i18n="impact.sidebar_market">Market Kiosks</span>
+            </button>
+            <button class="project-link" onclick="scrollToProject('project-training')">
+                <svg class="project-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                <span data-i18n="impact.sidebar_training">Vocational Training</span>
+            </button>
+            <button class="project-link" onclick="scrollToProject('project-wells')">
+                <svg class="project-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+                <span data-i18n="impact.sidebar_wells">Clean Water Wells</span>
+            </button>
+            <button class="project-link" onclick="scrollToProject('project-health')">
+                <svg class="project-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span data-i18n="impact.sidebar_health">Mobile Health Clinics</span>
+            </button>
+
+            <div class="sidebar-right-bottom">
+                <hr class="index-divider">
+                <a href="transparency.html" class="sidebar-action">
+                    <svg class="sidebar-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <span data-i18n="nav.transparency">Transparency</span>
+                </a>
+                <a href="index.html" class="sidebar-action">
+                    <svg class="sidebar-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                    <span data-i18n="nav.home">Home</span>
+                </a>
             </div>
-        </section>
-    </main>
+        </aside>
+
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1071,26 +1292,102 @@
     <script src="js/components.js"></script>
 
     <script>
-        // Navbar scroll behavior
-        (function () {
-            const navbar = document.querySelector('.navbar');
-            const hero = document.querySelector('.hero');
-            let heroHeight = hero ? hero.offsetHeight : 400;
+        // Scroll to project in center panel
+        function scrollToProject(projectId) {
+            const el = document.getElementById(projectId);
+            const center = document.querySelector('.content-center');
+            if (el && center) {
+                center.scrollTo({ top: el.offsetTop - 20, behavior: 'smooth' });
+            }
+            // Update active state in project index
+            document.querySelectorAll('.project-link').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
 
-            function updateNavbar() {
-                const scrollY = window.scrollY;
-                if (scrollY > heroHeight * 0.3) {
-                    navbar.classList.add('visible');
-                    navbar.classList.remove('hidden');
-                } else {
-                    navbar.classList.remove('visible');
-                    navbar.classList.add('hidden');
+        // Highlight active project on scroll
+        (function () {
+            const center = document.querySelector('.content-center');
+            const articles = center.querySelectorAll('article[id]');
+            const links = document.querySelectorAll('.project-link');
+
+            center.addEventListener('scroll', function () {
+                let current = '';
+                articles.forEach(article => {
+                    if (article.offsetTop - 100 <= center.scrollTop) {
+                        current = article.id;
+                    }
+                });
+                links.forEach((link, i) => {
+                    link.classList.remove('active');
+                    const ids = ['project-market', 'project-training', 'project-wells', 'project-health'];
+                    if (ids[i] === current) {
+                        link.classList.add('active');
+                        // Update left sidebar metadata
+                        updateMetadata(current);
+                    }
+                });
+            }, { passive: true });
+        })();
+
+        // Update left sidebar metadata based on active project
+        function updateMetadata(projectId) {
+            const data = {
+                'project-market': {
+                    overview: 'Transforming women from "illegal street vendors" to "authorized traders" in Nyala.',
+                    financials: '$50,000 Invested',
+                    impact: '150+ Women Traders',
+                    partners: [
+                        { src: 'images/unhabitat.png', alt: 'UN-Habitat' },
+                        { src: 'images/UNHCR.svg.png', alt: 'UNHCR' },
+                        { src: 'images/UNFPA_logo.svg.png', alt: 'UNFPA' }
+                    ]
+                },
+                'project-training': {
+                    overview: 'A 2012 pilot program bringing together 30 women from different backgrounds.',
+                    financials: '$25,000 Invested',
+                    impact: '30 Women Trained',
+                    partners: [
+                        { src: 'images/unhabitat.png', alt: 'UN-Habitat' },
+                        { src: 'images/UNHCR.svg.png', alt: 'UNHCR' },
+                        { src: 'images/Omdurman Islamic bank.png', alt: 'Omdurman Bank' }
+                    ]
+                },
+                'project-wells': {
+                    overview: 'Building clean water wells in rural communities across Sudan.',
+                    financials: '$120,000 Invested',
+                    impact: '15,000+ Beneficiaries',
+                    partners: [
+                        { src: 'images/jica.png', alt: 'JICA' },
+                        { src: 'images/IOM.png', alt: 'IOM' },
+                        { src: 'images/awdf.png', alt: 'AWDF' }
+                    ]
+                },
+                'project-health': {
+                    overview: 'Providing healthcare to remote communities through mobile medical units.',
+                    financials: '$80,000 Invested',
+                    impact: '50,000+ Consultations',
+                    partners: [
+                        { src: 'images/UNFPA_logo.svg.png', alt: 'UNFPA' },
+                        { src: 'images/IOM.png', alt: 'IOM' },
+                        { src: 'images/kimse-yok-mu-logo.png', alt: 'Kimse Yok Mu' }
+                    ]
+                }
+            };
+            const d = data[projectId];
+            if (d) {
+                document.getElementById('meta-overview-text').textContent = d.overview;
+                document.getElementById('meta-financials-text').textContent = d.financials;
+                document.getElementById('meta-impact-text').textContent = d.impact;
+
+                // Update partners logos
+                const partnersContainer = document.getElementById('meta-partners-logos');
+                if (partnersContainer && d.partners) {
+                    partnersContainer.innerHTML = d.partners.map(p =>
+                        `<img src="${p.src}" alt="${p.alt}" class="partner-logo" title="${p.alt}">`
+                    ).join('');
                 }
             }
-
-            window.addEventListener('scroll', updateNavbar, { passive: true });
-            updateNavbar();
-        })();
+        }
 
         // Mobile Menu Functions
         function toggleMobileMenu() {
@@ -1136,18 +1433,15 @@
                         </button>
                     </div>
                 `;
-
-                // Re-initialize language switcher events for the newly added switcher
                 if (window.SEVO && window.SEVO.i18n && window.SEVO.i18n.reinitializeSwitchers) {
                     window.SEVO.i18n.reinitializeSwitchers();
                 }
             }
         })();
 
-        // Close modal with Escape key
+        // Close with Escape key
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
-                // Close mobile menu
                 const menu = document.getElementById('mobileMenu');
                 if (menu.classList.contains('active')) {
                     toggleMobileMenu();

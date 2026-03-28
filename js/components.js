@@ -50,6 +50,16 @@
             }
         });
 
+        // Add to impact page navbar's nav-actions container
+        const impactActions = document.querySelectorAll('.impact-navbar .nav-actions');
+        impactActions.forEach(actions => {
+            if (!actions.querySelector('.lang-switcher')) {
+                const switcher = document.createElement('div');
+                switcher.innerHTML = COMPONENTS.languageSwitcher;
+                actions.insertBefore(switcher.firstElementChild, actions.firstChild);
+            }
+        });
+
         // Fallback: Add to nav-links for backward compatibility with legacy layouts
         const fallbackNavs = document.querySelectorAll('.navbar .nav-links, .static-header .nav-links');
         fallbackNavs.forEach(nav => {

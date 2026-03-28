@@ -153,7 +153,8 @@
 /* Mirrors automatically when dir changes between ltr and rtl */
 
 .navbar,
-.static-header nav {
+.static-header nav,
+.impact-navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -161,14 +162,16 @@
 
 /* Logo positioned at inline-start */
 .navbar .logo,
-.static-header .logo {
+.static-header .logo,
+.impact-navbar .logo {
     margin-inline-end: auto;
     flex-shrink: 0;
 }
 
 /* Primary navigation links - centered */
 .navbar .nav-links,
-.static-header .nav-links {
+.static-header .nav-links,
+.impact-navbar .nav-links {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,7 +183,8 @@
 
 /* Actions container (lang switcher + donate) - positioned at inline-end */
 .navbar .nav-actions,
-.static-header .nav-actions {
+.static-header .nav-actions,
+.impact-navbar .nav-actions {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -190,13 +194,15 @@
 
 /* Language switcher in navbar context */
 .navbar .nav-actions .lang-switcher,
-.static-header .nav-actions .lang-switcher {
+.static-header .nav-actions .lang-switcher,
+.impact-navbar .nav-actions .lang-switcher {
     margin-inline-end: 0;
 }
 
 /* Ensure nav links without actions container still work */
 .navbar .nav-links:only-child,
-.static-header .nav-links:only-child {
+.static-header .nav-links:only-child,
+.impact-navbar .nav-links:only-child {
     margin-inline-start: auto;
     margin-inline-end: 0;
 }
@@ -204,18 +210,38 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .navbar .nav-links,
-    .static-header .nav-links {
+    .static-header .nav-links,
+    .impact-navbar .nav-links {
         display: none;
     }
 
     .navbar .nav-actions,
-    .static-header .nav-actions {
+    .static-header .nav-actions,
+    .impact-navbar .nav-actions {
         gap: 8px;
     }
 
     .navbar .nav-actions .lang-switcher,
-    .static-header .nav-actions .lang-switcher {
+    .static-header .nav-actions .lang-switcher,
+    .impact-navbar .nav-actions .lang-switcher {
         margin-inline-end: 0;
+    }
+}
+
+/* ============================================
+   RTL MARQUEE SUPPORT
+   ============================================ */
+/* In RTL, the marquee needs to scroll from right to left with proper keyframes */
+[dir="rtl"] .partners-marquee-inner {
+    animation: partners-marquee-scroll-rtl 30s linear infinite;
+}
+
+@keyframes partners-marquee-scroll-rtl {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(50%, 0, 0);
     }
 }
 

@@ -161,6 +161,20 @@
     "report_title": "Annual Impact Report",
     "report_desc": "Download our latest annual report for detailed statistics, financial transparency, and stories from the field.",
     "report_cta": "Download Report",
+    "sidebar_metadata": "Project Metadata",
+    "sidebar_verified": "Verified Stats",
+    "sidebar_financials": "Financials",
+    "sidebar_invested": "$50,000 Invested",
+    "sidebar_beneficiaries": "15,000+ Beneficiaries",
+    "sidebar_partners": "Partners",
+    "sidebar_featured": "Featured Initiative",
+    "sidebar_vocational": "Vocational Training",
+    "sidebar_market": "Market Kiosks",
+    "sidebar_training": "Vocational Training",
+    "sidebar_wells": "Clean Water Wells",
+    "sidebar_health": "Mobile Health Clinics",
+    "sidebar_docs": "Documentation",
+    "sidebar_settings": "Settings",
     "projects_section": {
       "title": "Finished Projects",
       "subtitle": "Explore our completed initiatives that have created lasting impact",
@@ -197,7 +211,11 @@
         "solution_li3": "<strong>Financial Fuel:</strong> Real growth requires capital. Beyond the stalls, participants were integrated into microfinance programs, allowing them to expand their inventory and increase their daily turnover.",
         "impact_title": "The Impact: Stability is the New Foundation",
         "impact_p1": "Today, the market looks different. The green kiosks represent more than just a place to sell fruit or crafts—they represent a permanent stake in the local economy.",
-        "impact_p2": "By solving the \"root cause\"—the lack of a fixed, legal location—we haven't just helped these women survive another day; we've built a framework where they can finally plan for the future."
+        "impact_p2": "By solving the \"root cause\"—the lack of a fixed, legal location—we haven't just helped these women survive another day; we've built a framework where they can finally plan for the future.",
+        "stat_traders": "Women Traders",
+        "stat_year": "Year Started",
+        "stat_location_value": "Nyala",
+        "stat_location": "South Darfur"
       },
       "training": {
         "id": "project-training",
@@ -222,7 +240,10 @@
         "scale_li1": "<strong>Asset Ownership:</strong> Every single woman was equipped with her own professional sewing machine.",
         "scale_li2": "<strong>Business Autonomy:</strong> They didn't leave as employees; they left as business owners with the capital to start their own workshops.",
         "legacy_title": "The Legacy",
-        "legacy_p1": "This 2012 cohort was the \"proof of concept\" for SEVO's current model. It proved that when you give a woman a machine, you don't just feed a family—you stabilize a community. These 30 women became the ambassadors of a new, integrated Darfur, proving that the needle and thread could mend more than just cloth; they could mend a social fabric torn by conflict."
+        "legacy_p1": "This 2012 cohort was the \"proof of concept\" for SEVO's current model. It proved that when you give a woman a machine, you don't just feed a family—you stabilize a community. These 30 women became the ambassadors of a new, integrated Darfur, proving that the needle and thread could mend more than just cloth; they could mend a social fabric torn by conflict.",
+        "stat_women": "Women Trained",
+        "stat_year": "Year",
+        "stat_regions": "Regions United"
       },
       "wells": {
         "id": "project-wells",
@@ -248,7 +269,10 @@
         "solution_li3": "<strong>Sustainable Design:</strong> Wells are built to last, with durable pumps and protective infrastructure.",
         "impact_title": "The Impact",
         "impact_p1": "Clean water has transformed these communities. Waterborne diseases have decreased by 80%, school attendance has increased, and women have time for economic activities.",
-        "impact_p2": "Access to clean water is a fundamental right that transforms entire communities, improving health, education, and economic opportunities."
+        "impact_p2": "Access to clean water is a fundamental right that transforms entire communities, improving health, education, and economic opportunities.",
+        "stat_wells": "Wells Built",
+        "stat_people": "People Served",
+        "stat_disease": "Disease Reduction"
       },
       "health": {
         "id": "project-health",
@@ -274,7 +298,10 @@
         "solution_li3": "<strong>Maternal Health:</strong> Prenatal care, safe delivery support, and postnatal checkups.",
         "impact_title": "The Impact",
         "impact_p1": "Over 50,000 medical consultations have been provided, vaccination rates have increased by 60%, and maternal mortality has decreased in served communities.",
-        "impact_p2": "Our mobile clinics ensure that healthcare reaches those who need it most, regardless of their location."
+        "impact_p2": "Our mobile clinics ensure that healthcare reaches those who need it most, regardless of their location.",
+        "stat_consultations": "Consultations",
+        "stat_year": "Year Started",
+        "stat_communities": "Communities"
       }
     }
   },

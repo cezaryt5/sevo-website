@@ -609,110 +609,160 @@
             letter-spacing: 0.05em;
         }
 
-        /* Partners Strip — Marquee */
-        .partners-strip {
-            padding: 60px 0;
+        /* Partners Section — GSAP Marquee */
+        .partners-section {
+            padding: 80px 0;
             background-color: var(--bg-highlight-2);
             border-top: 1px solid rgba(127, 65, 69, 0.12);
             border-bottom: 1px solid rgba(127, 65, 69, 0.12);
             overflow: hidden;
         }
 
-        .partners-label {
+        .partners-section .section-header {
             text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .partners-section .section-label {
             font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--text-light);
-            margin-bottom: 36px;
-        }
-
-        /* Marquee outer wrapper */
-        .partners-marquee-wrapper {
-            overflow: hidden;
-            width: 100%;
-        }
-
-        /* Scrolling track — duplicated content for seamless loop */
-        .partners-marquee-track {
-            display: flex;
-            align-items: center;
-            gap: 72px;
-            width: max-content;
-            animation: partners-scroll 42s linear infinite;
-        }
-
-        /* Pause on hover */
-        .partners-marquee-wrapper:hover .partners-marquee-track {
-            animation-play-state: paused;
-        }
-
-        @keyframes partners-scroll {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* Respect reduced-motion preference */
-        @media (prefers-reduced-motion: reduce) {
-            .partners-marquee-track {
-                animation: none;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 40px 60px;
-                padding: 0 40px;
-            }
-        }
-
-        .partner-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.7;
-            transition: opacity 0.25s ease, transform 0.25s ease;
-            filter: grayscale(40%);
-            flex-shrink: 0;
-        }
-
-        .partner-logo:hover {
-            opacity: 1;
-            transform: scale(1.07);
-            filter: grayscale(0%);
-        }
-
-        .partner-logo img {
-            height: 52px;
-            width: auto;
-            max-width: 160px;
-            object-fit: contain;
+            margin-bottom: 12px;
             display: block;
         }
 
-        .partner-text-logo {
+        .partners-section .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Marquee Container */
+        .partners-marquee {
+            --partners-gap: 60px;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        /* Fade edges */
+        .partners-marquee::before,
+        .partners-marquee::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .partners-marquee::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-highlight-2), transparent);
+        }
+
+        .partners-marquee::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-highlight-2), transparent);
+        }
+
+        /* Inner wrapper for infinite scroll */
+        .partners-marquee-inner {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            will-change: transform;
+            animation: partners-marquee-scroll 30s linear infinite;
+        }
+
+        .partners-marquee:hover .partners-marquee-inner {
+            animation-play-state: paused;
+        }
+
+        @keyframes partners-marquee-scroll {
+            from {
+                transform: translate3d(0, 0, 0);
+            }
+            to {
+                transform: translate3d(-50%, 0, 0);
+            }
+        }
+
+        /* Track that holds all logos */
+        .partners-track {
+            display: flex;
+            align-items: center;
+            gap: var(--partners-gap);
+            flex: 0 0 auto;
+            min-width: max-content;
+            padding-right: var(--partners-gap);
+        }
+
+        /* Individual partner logo */
+        .partner-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            opacity: 0.7;
+            filter: grayscale(30%);
+            transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .partner-item:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .partner-item img {
+            height: 55px;
+            width: auto;
+            max-width: 150px;
+            object-fit: contain;
+        }
+
+        .partner-item.text-logo {
             font-family: 'Oswald', sans-serif;
             font-weight: 600;
-            font-size: 0.88rem;
-            letter-spacing: 0.06em;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--text-main);
             border: 1.5px solid rgba(127, 65, 69, 0.35);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 8px;
             white-space: nowrap;
             text-align: center;
-            line-height: 1.3;
-            opacity: 0.75;
-            flex-shrink: 0;
-            transition: opacity 0.25s ease;
+            line-height: 1.4;
         }
 
-        .partner-text-logo:hover {
-            opacity: 1;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .partners-section {
+                padding: 50px 0;
+            }
+
+            .partners-section .section-title {
+                font-size: 1.5rem;
+            }
+
+            .partners-marquee::before,
+            .partners-marquee::after {
+                width: 40px;
+            }
+
+            .partner-item img {
+                height: 40px;
+            }
+
+            .partners-marquee {
+                --partners-gap: 40px;
+            }
         }
 
         /* CTA Section */
@@ -1470,59 +1520,71 @@
             </div>
         </section>
 
-        <!-- Partners Strip -->
-        <section class="partners-strip">
+        <!-- Partners Section -->
+        <section class="partners-section">
             <div class="container">
-                <p class="partners-label" data-i18n="about.partners_label">Trusted Partners &amp; Supporters</p>
+                <div class="section-header">
+                    <span class="section-label" data-i18n="about.partners_label">Trusted Partners &amp; Supporters</span>
+                </div>
             </div>
-            <div class="partners-marquee-wrapper" aria-label="Partners and supporters">
-                <div class="partners-marquee-track">
-                    <a href="https://unhabitat.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UN-Habitat">
-                        <img src="images/unhabitat.png" alt="UN-Habitat">
-                    </a>
-                    <a href="https://www.unhcr.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UNHCR">
-                        <img src="images/UNHCR.svg.png" alt="UNHCR">
-                    </a>
-                    <a href="#" class="partner-logo" aria-label="Kimse Yok Mu">
-                        <img src="images/kimse-yok-mu-logo.png" alt="Kimse Yok Mu">
-                    </a>
-                    <a href="#" class="partner-logo" aria-label="Omdurman Islamic Bank">
-                        <img src="images/Omdurman Islamic bank.png" alt="Omdurman Islamic Bank">
-                    </a>
-                    <a href="#" class="partner-logo" aria-label="AWDF">
-                        <img src="images/awdf.png" alt="African Women's Development Fund">
-                    </a>
-                    <a href="https://www.iom.int" target="_blank" rel="noopener" class="partner-logo" aria-label="IOM">
-                        <img src="images/IOM.png" alt="IOM - UN Migration">
-                    </a>
-                    <a href="https://www.unfpa.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UNFPA">
-                        <img src="images/UNFPA_logo.svg.png" alt="UNFPA">
-                    </a>
-                    <div class="partner-text-logo" aria-label="Family Bank Nyala">Family Bank<br>Nyala</div>
-                    <div class="partner-text-logo" aria-label="مؤسسة الشباب للتمويل الاصغر">مؤسسة الشباب<br>للتمويل الاصغر</div>
-                    <a href="https://unhabitat.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UN-Habitat" aria-hidden="true">
-                        <img src="images/unhabitat.png" alt="" loading="lazy">
-                    </a>
-                    <a href="https://www.unhcr.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UNHCR" aria-hidden="true">
-                        <img src="images/UNHCR.svg.png" alt="" loading="lazy">
-                    </a>
-                    <a href="#" class="partner-logo" aria-hidden="true">
-                        <img src="images/kimse-yok-mu-logo.png" alt="" loading="lazy">
-                    </a>
-                    <a href="#" class="partner-logo" aria-hidden="true">
-                        <img src="images/Omdurman Islamic bank.png" alt="" loading="lazy">
-                    </a>
-                    <a href="#" class="partner-logo" aria-label="AWDF" aria-hidden="true">
-                        <img src="images/awdf.png" alt="" loading="lazy">
-                    </a>
-                    <a href="https://www.iom.int" target="_blank" rel="noopener" class="partner-logo" aria-label="IOM" aria-hidden="true">
-                        <img src="images/IOM.png" alt="" loading="lazy">
-                    </a>
-                    <a href="https://www.unfpa.org" target="_blank" rel="noopener" class="partner-logo" aria-label="UNFPA" aria-hidden="true">
-                        <img src="images/UNFPA_logo.svg.png" alt="" loading="lazy">
-                    </a>
-                    <div class="partner-text-logo" aria-hidden="true">Family Bank<br>Nyala</div>
-                    <div class="partner-text-logo" aria-hidden="true">مؤسسة الشباب<br>للتمويل الاصغر</div>
+            <div class="partners-marquee" aria-label="Partners and supporters">
+                <div class="partners-marquee-inner">
+                    <div class="partners-track" id="partners-track">
+                        <!-- Original logos -->
+                        <a href="https://unhabitat.org" target="_blank" rel="noopener" class="partner-item" aria-label="UN-Habitat">
+                            <img src="images/unhabitat.png" alt="UN-Habitat">
+                        </a>
+                        <a href="https://www.unhcr.org" target="_blank" rel="noopener" class="partner-item" aria-label="UNHCR">
+                            <img src="images/UNHCR.svg.png" alt="UNHCR">
+                        </a>
+                        <a href="#" class="partner-item" aria-label="Kimse Yok Mu">
+                            <img src="images/kimse-yok-mu-logo.png" alt="Kimse Yok Mu">
+                        </a>
+                        <a href="#" class="partner-item" aria-label="Omdurman Islamic Bank">
+                            <img src="images/Omdurman Islamic bank.png" alt="Omdurman Islamic Bank">
+                        </a>
+                        <a href="#" class="partner-item" aria-label="AWDF">
+                            <img src="images/awdf.png" alt="African Women's Development Fund">
+                        </a>
+                        <a href="https://www.iom.int" target="_blank" rel="noopener" class="partner-item" aria-label="IOM">
+                            <img src="images/IOM.png" alt="IOM - UN Migration">
+                        </a>
+                        <a href="https://www.unfpa.org" target="_blank" rel="noopener" class="partner-item" aria-label="UNFPA">
+                            <img src="images/UNFPA_logo.svg.png" alt="UNFPA">
+                        </a>
+                        <a href="https://www.jica.go.jp" target="_blank" rel="noopener" class="partner-item" aria-label="JICA">
+                            <img src="images/jica.png" alt="JICA">
+                        </a>
+                        <div class="partner-item text-logo" aria-label="Family Bank Nyala">Family Bank<br>Nyala</div>
+                        <div class="partner-item text-logo" aria-label="مؤسسة الشباب للتمويل الاصغر">مؤسسة الشباب<br>للتمويل الاصغر</div>
+                        <!-- Duplicated logos for seamless infinite scroll -->
+                        <a href="https://unhabitat.org" target="_blank" rel="noopener" class="partner-item" aria-label="UN-Habitat">
+                            <img src="images/unhabitat.png" alt="UN-Habitat">
+                        </a>
+                        <a href="https://www.unhcr.org" target="_blank" rel="noopener" class="partner-item" aria-label="UNHCR">
+                            <img src="images/UNHCR.svg.png" alt="UNHCR">
+                        </a>
+                        <a href="#" class="partner-item" aria-label="Kimse Yok Mu">
+                            <img src="images/kimse-yok-mu-logo.png" alt="Kimse Yok Mu">
+                        </a>
+                        <a href="#" class="partner-item" aria-label="Omdurman Islamic Bank">
+                            <img src="images/Omdurman Islamic bank.png" alt="Omdurman Islamic Bank">
+                        </a>
+                        <a href="#" class="partner-item" aria-label="AWDF">
+                            <img src="images/awdf.png" alt="African Women's Development Fund">
+                        </a>
+                        <a href="https://www.iom.int" target="_blank" rel="noopener" class="partner-item" aria-label="IOM">
+                            <img src="images/IOM.png" alt="IOM - UN Migration">
+                        </a>
+                        <a href="https://www.unfpa.org" target="_blank" rel="noopener" class="partner-item" aria-label="UNFPA">
+                            <img src="images/UNFPA_logo.svg.png" alt="UNFPA">
+                        </a>
+                        <a href="https://www.jica.go.jp" target="_blank" rel="noopener" class="partner-item" aria-label="JICA">
+                            <img src="images/jica.png" alt="JICA">
+                        </a>
+                        <div class="partner-item text-logo" aria-label="Family Bank Nyala">Family Bank<br>Nyala</div>
+                        <div class="partner-item text-logo" aria-label="مؤسسة الشباب للتمويل الاصغر">مؤسسة الشباب<br>للتمويل الاصغر</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1813,18 +1875,6 @@
                 ease: 'power3.out'
             });
 
-            // Partners marquee animation
-            gsap.from('.partners-marquee-track', {
-                scrollTrigger: {
-                    trigger: '.partners-strip',
-                    start: 'top 80%'
-                },
-                x: -100,
-                opacity: 0,
-                duration: 1,
-                ease: 'power3.out'
-            });
-
             // CTA section animation
             gsap.from('.cta-section h2', {
                 scrollTrigger: {
@@ -1897,6 +1947,49 @@
                 ease: 'power3.out'
             });
         });
+
+        // Partners Infinite Marquee (CSS-based)
+        const initPartnersMarquee = () => {
+            document.querySelectorAll('.partners-marquee').forEach(marquee => {
+                if (marquee.dataset.marqueeReady === 'true') return;
+
+                const track = marquee.querySelector('.partners-track');
+                if (!track) return;
+
+                const setup = () => {
+                    if (marquee.querySelector('.partners-marquee-inner')) return;
+
+                    const inner = document.createElement('div');
+                    inner.className = 'partners-marquee-inner';
+
+                    const clone = track.cloneNode(true);
+                    clone.removeAttribute('id');
+                    clone.setAttribute('aria-hidden', 'true');
+                    clone.style.pointerEvents = 'none';
+                    clone.querySelectorAll('a').forEach(link => {
+                        link.tabIndex = -1;
+                    });
+
+                    inner.append(track, clone);
+                    marquee.replaceChildren(inner);
+                    marquee.dataset.marqueeReady = 'true';
+                };
+
+                const images = Array.from(track.querySelectorAll('img'));
+                const imagePromises = images.map(img => {
+                    if (img.complete) return Promise.resolve();
+                    return new Promise(resolve => {
+                        img.addEventListener('load', resolve, { once: true });
+                        img.addEventListener('error', resolve, { once: true });
+                    });
+                });
+
+                Promise.all(imagePromises).then(setup);
+            });
+        };
+
+        initPartnersMarquee();
+
     </script>
 </body>
 
