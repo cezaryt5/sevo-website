@@ -1633,7 +1633,7 @@
             <h2 data-i18n="home.newsletter_title">Stay Connected</h2>
             <p data-i18n="home.newsletter_desc">Get updates on our projects, stories from the field, and ways to
                 help delivered directly to your inbox.</p>
-            <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)" novalidate>
+            <form class="newsletter-form" id="newsletterForm" novalidate>
                 <input type="email" id="newsletterEmail" data-i18n-placeholder="home.newsletter_placeholder"
                     placeholder="Your email address" required aria-label="Email address">
                 <button type="submit" class="btn-newsletter" data-i18n="home.newsletter_cta">Subscribe</button>
@@ -1699,6 +1699,10 @@
     <!-- Internationalization Scripts -->
     <script src="js/i18n.js"></script>
     <script src="js/components.js"></script>
+    <!-- Form Protection (Cloudflare Turnstile + Rate limiting) -->
+    <script src="js/form-protection.js"></script>
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
     <script>
         // Navbar scroll behavior
@@ -1773,21 +1777,6 @@
                 }
             }
         })();
-
-        // Newsletter form handler
-        function handleNewsletterSubmit(event) {
-            event.preventDefault();
-            const emailInput = document.getElementById('newsletterEmail');
-            const successMsg = document.getElementById('newsletterSuccess');
-            const form = document.getElementById('newsletterForm');
-
-            if (emailInput && emailInput.value) {
-                form.style.display = 'none';
-                if (successMsg) {
-                    successMsg.style.display = 'block';
-                }
-            }
-        }
 
         // Close mobile menu with Escape key
         document.addEventListener('keydown', function (e) {
