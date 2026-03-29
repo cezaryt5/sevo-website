@@ -166,7 +166,8 @@
         if (!errorEl) {
             errorEl = document.createElement('div');
             errorEl.className = 'form-error';
-            errorEl.style.cssText = 'background: #fee; color: #c00; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem;';
+            errorEl.style.cssText = 'position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #fee; color: #c00; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; white-space: nowrap; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15); margin-bottom: 8px;';
+            form.style.position = 'relative';
             form.insertBefore(errorEl, form.firstChild);
         }
 
@@ -175,7 +176,7 @@
 
         setTimeout(() => {
             errorEl.style.display = 'none';
-        }, 5000);
+        }, 4000);
     }
 
     /**
@@ -187,7 +188,8 @@
         if (!successEl) {
             successEl = document.createElement('div');
             successEl.className = 'form-success';
-            successEl.style.cssText = 'background: #efe; color: #060; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem;';
+            successEl.style.cssText = 'position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #efe; color: #060; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; white-space: nowrap; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15); margin-bottom: 8px;';
+            form.style.position = 'relative';
             form.insertBefore(successEl, form.firstChild);
         }
 
@@ -212,7 +214,7 @@
         honeypot.setAttribute('autocomplete', 'off');
         form.appendChild(honeypot);
 
-        // Add Cloudflare Turnstile before submit button
+        // Add Cloudflare Turnstile - invisible verification
         const submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) {
             const turnstileContainer = document.createElement('div');
@@ -220,7 +222,8 @@
             turnstileContainer.style.cssText = 'margin-bottom: 16px;';
             turnstileContainer.setAttribute('data-sitekey', CONFIG.turnstileSiteKey);
             turnstileContainer.setAttribute('data-theme', 'light');
-            turnstileContainer.setAttribute('data-size', 'normal');
+            turnstileContainer.setAttribute('data-size', 'invisible');
+            turnstileContainer.setAttribute('data-callback', 'turnstileCallback');
             submitBtn.parentNode.insertBefore(turnstileContainer, submitBtn);
         }
 
@@ -246,7 +249,7 @@
             // Validate Turnstile
             const turnstileCheck = checkTurnstile(form);
             if (!turnstileCheck.valid) {
-                showError(form, turnstileCheck.message);
+                showError(form, 'Please complete the security verification and try again.');
                 return;
             }
 
@@ -278,15 +281,16 @@
             honeypot.setAttribute('autocomplete', 'off');
             form.appendChild(honeypot);
 
-            // Add Cloudflare Turnstile before submit button
+            // Add Cloudflare Turnstile - hidden, just for verification
             const submitBtn = form.querySelector('button[type="submit"]');
             if (submitBtn) {
                 const turnstileContainer = document.createElement('div');
                 turnstileContainer.className = 'cf-turnstile';
-                turnstileContainer.style.cssText = 'margin: 12px 0; display: flex; justify-content: center;';
+                turnstileContainer.style.cssText = 'position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px; overflow: hidden;';
                 turnstileContainer.setAttribute('data-sitekey', CONFIG.turnstileSiteKey);
                 turnstileContainer.setAttribute('data-theme', 'light');
-                turnstileContainer.setAttribute('data-size', 'compact');
+                turnstileContainer.setAttribute('data-size', 'invisible');
+                turnstileContainer.setAttribute('data-callback', 'turnstileCallback');
                 submitBtn.parentNode.insertBefore(turnstileContainer, submitBtn);
             }
 
@@ -297,6 +301,22 @@
                 const emailInput = form.querySelector('input[type="email"]');
                 if (!emailInput || !emailInput.value) {
                     showError(form, 'Please enter a valid email address.');
+                    return;
+                }
+
+                // Email format validation - must have proper domain format
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const email = emailInput.value.trim();
+                
+                if (!emailPattern.test(email)) {
+                    showError(form, 'Please enter a valid email address (e.g., name@example.com).');
+                    return;
+                }
+
+                // Additional check: ensure domain has at least 2 characters after the dot
+                const domainParts = email.split('@')[1];
+                if (!domainParts || domainParts.split('.').length < 2) {
+                    showError(form, 'Please enter a valid email address with a proper domain.');
                     return;
                 }
 
@@ -318,7 +338,7 @@
                 // Validate Turnstile
                 const turnstileCheck = checkTurnstile(form);
                 if (!turnstileCheck.valid) {
-                    showError(form, turnstileCheck.message);
+                    showError(form, 'Please complete the security verification and try again.');
                     return;
                 }
 
@@ -395,5 +415,11 @@
         checkTurnstile,
         resetTurnstile,
         CONFIG
+    };
+
+    // Global callback for Turnstile (called when verification succeeds)
+    window.turnstileCallback = function(token) {
+        // Token is automatically stored in the hidden input
+        console.log('Turnstile verification successful');
     };
 })();
