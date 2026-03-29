@@ -1,0 +1,16 @@
+# SEVO - Simat Elkhair Voluntary Organization
+# Robots.txt - Guide search engine crawlers
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://simat-elkhair.org/sitemap.xml
+
+# Crawl delay (optional, be respectful)
+Crawl-delay: 1
+
+# Block access to admin/internal files (if any)
+Disallow: /.github/
+Disallow: /js/translations/
